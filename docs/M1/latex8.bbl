@@ -1,0 +1,20 @@
+\begin{thebibliography}{1}\setlength{\itemsep}{-1ex}\small
+
+\bibitem{dglLinkPrediction}
+{L}ink {P}rediction using {G}raph {N}eural {N}etworks &#x2014; {D}{G}{L}
+  0.8.2post1 documentation --- docs.dgl.ai.
+\newblock
+  \url{https://docs.dgl.ai/en/0.8.x/tutorials/blitz/4_link_predict.html}.
+
+\bibitem{menzli-blog}
+A.~Menzli.
+\newblock Graph neural network and some of gnn applications: Everything you
+  need to know, September 11 2023.
+
+\bibitem{shahroz2021covid19}
+M.~Shahroz, F.~Ahmad, M.~S. Younis, N.~Ahmad, M.~N.~K. Boulos, R.~Vinuesa, and
+  J.~Qadir.
+\newblock Covid-19 digital contact tracing applications and techniques: A
+  review post initial deployments, 2021.
+
+\end{thebibliography}

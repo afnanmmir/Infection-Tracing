@@ -1,0 +1,111 @@
+
+%
+%  $Description: Author guidelines and sample document in LaTeX 2.09$ 
+%
+%  $Author: ienne $
+%  $Date: 1995/09/15 15:20:59 $
+%  $Revision: 1.4 $
+%
+
+\documentclass[times, 10pt,twocolumn]{article} 
+\usepackage{latex8}
+\usepackage{times}
+
+%\documentstyle[times,art10,twocolumn,latex8]{article}
+
+%------------------------------------------------------------------------- 
+% take the % away on next line to produce the final camera-ready version 
+\pagestyle{empty}
+
+%------------------------------------------------------------------------- 
+\begin{document}
+
+% \title{Epidemics Graph Neural Network Node Classification}
+\title{Epidemics Graph Neural Network Node Classification Project Definition}
+
+\author{Jaykumar Patel\\
+The University of Texas at Austin\\
+110 Inner Campus Drive\\ Austin, TX 78712\\
+patel.jay4802@utexas.edu\\
+% For a paper whose authors are all at the same institution, 
+% omit the following lines up until the closing ``}''.
+% Additional authors and addresses can be added with ``\and'', 
+% just like the second author.
+\and
+Afnan Mir\\
+The University of Texas at Austin\\
+110 Inner Campus Drive\\ Austin, TX 78712\\ 
+afnanmir@utexas.edu\\
+}
+
+\maketitle
+\thispagestyle{empty}
+
+% \begin{abstract}
+%    Do we need?
+% \end{abstract}
+
+
+
+%------------------------------------------------------------------------- 
+\Section{Overview of the Project}
+
+When COVID-19 first appeared, one of the key ways that its spread was mitigated was through contact tracing. Contact tracing is the process of ``identify[ing] individuals who have possibly come in close contact with an infected person while that person was the carrier of the viral pathogens'' \cite{shahroz2021covid19}.
+
+However, the pandemic revealed that the COVID-19 disease can spread faster than manual contact tracing. Thus, the objective of this project is to automate contact tracing by incorporating machine learning using Graph Neural Networks (GNNs). This automation will allow quicker contact tracing, and possibly lead to a greater mitigation of the spread of COVID-19 when compared to manual contact tracing.
+
+% - What is the big picture? What is the main objective of this project?
+% - Why is this project interesting?
+
+%------------------------------------------------------------------------- 
+\Section{Objectives and Deliverables}
+
+First, we will analyze the networks to determine their properties. Then, to better understand network behavior, we will run simulation to see how COVID-19 spreads through the network.
+
+The main goal of contact tracing is to find people who may be infected due to their contact with other infected people. Similarly, this project will aim to classify infected nodes in a graph, where nodes represent people, and links represent contact between people. This network will be formed by utilizing real contact information from mobile devices. In order to predict infections within a network, this project will implement and analyze GNNs, specifically link prediction. 
+
+The dataset we will be using is the ``foursquare'' mobility dataset that consists of location visit logs in Austin, TX from 2019 to 2021. The visit log includes information about when and where a device was, as well as how long it was there. 
+% - What are the main research questions you plan to address?
+% - How exactly is the “network” formed? What is a “node” and what is a “link”?
+% - Which dataset(s) do you plan to use?
+% - What are the deliverables?
+
+%------------------------------------------------------------------------- 
+\Section{Tasks and Timeline}
+
+Firstly, we will collect and clean the data. This includes reformatting and filtering the data. We will analyze the dataset to get a better understanding of its properties (such as degree, betweenness centrality, clustering coefficient, etc.). We plan to complete this by October 10th, 2023.
+
+Then we plan to run simulations on the network to get a better understand of how the virus flows. We plan to complete this by November 14th, 2023.
+
+Finally, we will utilize GNNs to perform link prediction to see how the network evolves over time. We plan to complete this by November 30th, 2023.
+
+We will pair program; thus, the member contribution will be 50/50.
+
+% - What are the main tasks of your project?
+% - What is the proposed timeline (w.r.t. project milestones) and member(s) contribution?
+
+%------------------------------------------------------------------------- 
+\Section{Conclusion and References}
+
+In conclusion, the project aims to utilize GNNs to make contact tracing more efficient and accurate. We will analyze the dataset to understand its properties, we will run simulations to see how the virus spreads through the network, and we will train GNNs to perform link prediction.
+
+We will start by researching GNNs. Particularly, we will look at an article by Neptune.ai on the application of GNNs and a DGL tutorial on link prediction \cite{menzli-blog} \cite{dglLinkPrediction}.
+
+% https://towardsdatascience.com/graph-convolutional-networks-introduction-to-gnns-24b3f60d6c95
+% https://neptune.ai/blog/graph-neural-network-and-some-of-gnn-applications#:~:text=Graph%20Neural%20Networks%20(GNNs)%20are,and%20graph%2Dlevel%20prediction%20tasks.
+% https://docs.dgl.ai/en/0.8.x/tutorials/blitz/4_link_predict.html
+
+% what a GNNs is, and how to use it (blogs on this).
+
+% - Briefly summarize the project idea and main contributions.
+% - Include some starting points (e.g., papers, websites, datasets, etc., preferably more than what
+% was given to you as a starting point in the projects description).
+
+
+%------------------------------------------------------------------------- 
+% \nocite{ex1,ex2}
+\bibliographystyle{latex8}
+\bibliography{latex8}
+
+\end{document}
+
