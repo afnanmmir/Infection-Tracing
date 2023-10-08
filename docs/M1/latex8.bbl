@@ -1,20 +1,32 @@
 \begin{thebibliography}{1}\setlength{\itemsep}{-1ex}\small
 
-\bibitem{dglLinkPrediction}
-{L}ink {P}rediction using {G}raph {N}eural {N}etworks &#x2014; {D}{G}{L}
-  0.8.2post1 documentation --- docs.dgl.ai.
-\newblock
-  \url{https://docs.dgl.ai/en/0.8.x/tutorials/blitz/4_link_predict.html}.
+\bibitem{SIRD-LSTM-hybrid}
+A.~Bousquet, W.~H. Conrad, S.~O. Sadat, N.~Vardanyan, and Y.~Hong.
+\newblock Deep learning forecasting using time-varying parameters of the sird
+  model for covid-19, February 22 2022.
 
-\bibitem{menzli-blog}
-A.~Menzli.
-\newblock Graph neural network and some of gnn applications: Everything you
-  need to know, September 11 2023.
+\bibitem{SEIRD-LSTM}
+T.~Geroski, A.~Blagojevic, D.~M. Cvetković, A.~M. Cvetković, I.~Lorencin,
+  S.~B. Šegota, D.~Milovanovic, D.~Baskic, Z.~Car, and N.~Filipovic.
+\newblock Epidemiological predictive modeling of covid-19 infection:
+  Development, testing, and implementation on the population of the benelux
+  union, October 28 2021.
 
-\bibitem{shahroz2021covid19}
-M.~Shahroz, F.~Ahmad, M.~S. Younis, N.~Ahmad, M.~N.~K. Boulos, R.~Vinuesa, and
-  J.~Qadir.
-\newblock Covid-19 digital contact tracing applications and techniques: A
-  review post initial deployments, 2021.
+\bibitem{positivity-hospitalization-GNN}
+K.~Skianis, G.~Nikolentzos, B.~Gallix, R.~Thiebaut, and G.~Exarchakis.
+\newblock Predicting covid-19 positivity and hospitalization with multi-scale
+  graph neural networks, March 31 2023.
+
+\bibitem{SIR}
+R.~S. Yadav.
+\newblock Mathematical modeling and simulation of sir model for covid-2019
+  epidemic outbreak: A case study of india, May 21 2020.
+
+\bibitem{link-prediction-GNN}
+M.~Zhang and Y.~Chen.
+\newblock Link prediction based on graph neural networks.
+\newblock In S.~Bengio, H.~Wallach, H.~Larochelle, K.~Grauman, N.~Cesa-Bianchi,
+  and R.~Garnett, editors, {\em Advances in Neural Information Processing
+  Systems}, volume~31. Curran Associates, Inc., 2018.
 
 \end{thebibliography}

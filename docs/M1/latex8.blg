@@ -1,0 +1,55 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: latex8.aux
+The style file: latex8.bst
+Database file #1: latex8.bib
+Warning--entry type for "SEIRD-LSTM" isn't style-file defined
+--line 44 of file latex8.bib
+Warning--entry type for "SIR" isn't style-file defined
+--line 53 of file latex8.bib
+Warning--entry type for "SIRD-LSTM-hybrid" isn't style-file defined
+--line 62 of file latex8.bib
+Warning--entry type for "positivity-hospitalization-GNN" isn't style-file defined
+--line 71 of file latex8.bib
+You've used 5 entries,
+            2118 wiz_defined-function locations,
+            532 strings with 5080 characters,
+and the built_in function-call counts, 1749 in all, are:
+= -- 135
+> -- 149
+< -- 1
++ -- 57
+- -- 52
+* -- 136
+:= -- 310
+add.period$ -- 12
+call.type$ -- 5
+change.case$ -- 38
+chr.to.int$ -- 0
+cite$ -- 5
+duplicate$ -- 42
+empty$ -- 118
+format.name$ -- 52
+if$ -- 345
+int.to.chr$ -- 0
+int.to.str$ -- 5
+missing$ -- 1
+newline$ -- 24
+num.names$ -- 12
+pop$ -- 60
+preamble$ -- 1
+purify$ -- 33
+quote$ -- 0
+skip$ -- 40
+stack$ -- 0
+substring$ -- 25
+swap$ -- 7
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 20
+warning$ -- 0
+while$ -- 11
+width$ -- 6
+write$ -- 46
+(There were 4 warnings)
