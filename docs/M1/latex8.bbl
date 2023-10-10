@@ -17,6 +17,11 @@ K.~Skianis, G.~Nikolentzos, B.~Gallix, R.~Thiebaut, and G.~Exarchakis.
 \newblock Predicting covid-19 positivity and hospitalization with multi-scale
   graph neural networks, March 31 2023.
 
+\bibitem{contact-tracing-GNN}
+C.~W. Tan, P.-D. Yu, S.~Chen, and H.~V. Poor.
+\newblock Deeptrace: Learning to optimize contact tracing in epidemic networks
+  with graph neural networks, 2023.
+
 \bibitem{SIR}
 R.~S. Yadav.
 \newblock Mathematical modeling and simulation of sir model for covid-2019

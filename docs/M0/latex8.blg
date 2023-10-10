@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2022)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: latex8.aux
+The style file: latex8.bst
+Database file #1: latex8.bib
+Warning--entry type for "menzli-blog" isn't style-file defined
+--line 19 of file latex8.bib
+Warning--to sort, need author or key in dglLinkPrediction
+You've used 3 entries,
+            2118 wiz_defined-function locations,
+            510 strings with 4240 characters,
+and the built_in function-call counts, 759 in all, are:
+= -- 60
+> -- 46
+< -- 0
++ -- 19
+- -- 16
+* -- 47
+:= -- 124
+add.period$ -- 5
+call.type$ -- 3
+change.case$ -- 17
+chr.to.int$ -- 0
+cite$ -- 4
+duplicate$ -- 21
+empty$ -- 68
+format.name$ -- 16
+if$ -- 157
+int.to.chr$ -- 0
+int.to.str$ -- 3
+missing$ -- 0
+newline$ -- 14
+num.names$ -- 4
+pop$ -- 33
+preamble$ -- 1
+purify$ -- 14
+quote$ -- 0
+skip$ -- 24
+stack$ -- 0
+substring$ -- 15
+swap$ -- 3
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 12
+warning$ -- 1
+while$ -- 4
+width$ -- 4
+write$ -- 24
+(There were 2 warnings)

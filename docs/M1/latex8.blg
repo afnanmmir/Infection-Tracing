@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2022)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: latex8.aux
 The style file: latex8.bst
@@ -11,45 +11,45 @@ Warning--entry type for "SIRD-LSTM-hybrid" isn't style-file defined
 --line 62 of file latex8.bib
 Warning--entry type for "positivity-hospitalization-GNN" isn't style-file defined
 --line 71 of file latex8.bib
-You've used 5 entries,
+You've used 6 entries,
             2118 wiz_defined-function locations,
-            532 strings with 5080 characters,
-and the built_in function-call counts, 1749 in all, are:
-= -- 135
-> -- 149
+            536 strings with 5274 characters,
+and the built_in function-call counts, 2044 in all, are:
+= -- 159
+> -- 172
 < -- 1
-+ -- 57
-- -- 52
-* -- 136
-:= -- 310
-add.period$ -- 12
-call.type$ -- 5
-change.case$ -- 38
++ -- 66
+- -- 60
+* -- 155
+:= -- 360
+add.period$ -- 14
+call.type$ -- 6
+change.case$ -- 45
 chr.to.int$ -- 0
-cite$ -- 5
-duplicate$ -- 42
-empty$ -- 118
-format.name$ -- 52
-if$ -- 345
+cite$ -- 6
+duplicate$ -- 49
+empty$ -- 140
+format.name$ -- 60
+if$ -- 405
 int.to.chr$ -- 0
-int.to.str$ -- 5
+int.to.str$ -- 6
 missing$ -- 1
-newline$ -- 24
-num.names$ -- 12
-pop$ -- 60
+newline$ -- 28
+num.names$ -- 14
+pop$ -- 72
 preamble$ -- 1
-purify$ -- 33
+purify$ -- 39
 quote$ -- 0
-skip$ -- 40
+skip$ -- 48
 stack$ -- 0
-substring$ -- 25
-swap$ -- 7
+substring$ -- 30
+swap$ -- 8
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 20
+type$ -- 24
 warning$ -- 0
-while$ -- 11
-width$ -- 6
-write$ -- 46
+while$ -- 13
+width$ -- 7
+write$ -- 54
 (There were 4 warnings)

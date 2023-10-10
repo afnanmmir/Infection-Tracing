@@ -1,10 +1,8 @@
 \begin{thebibliography}{1}\setlength{\itemsep}{-1ex}\small
 
 \bibitem{dglLinkPrediction}
-{L}ink {P}rediction using {G}raph {N}eural {N}etworks &#x2014; {D}{G}{L}
-  0.8.2post1 documentation --- docs.dgl.ai.
-\newblock
-  \url{https://docs.dgl.ai/en/0.8.x/tutorials/blitz/4_link_predict.html}.
+Link prediction using graph neural networks; dgl 0.8.2post1 documentation ---
+  docs.dgl.ai, 2018.
 
 \bibitem{menzli-blog}
 A.~Menzli.
