@@ -6,3 +6,6 @@
 *.synctex.gz
 .vscode/
 graph_creation/*.gexf
+graph_creation/test.ipynb
+simulation/*.gif
+simulation/*.mp4

@@ -13,6 +13,7 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 
+
 %\documentstyle[times,art10,twocolumn,latex8]{article}
 
 %------------------------------------------------------------------------- 
@@ -47,9 +48,9 @@ The COVID-19 pandemic has shown that contact tracing is a key way to mitigate th
 %------------------------------------------------------------------------- 
 \Section{Introduction and Motivation}
 
-When COVID-19 first appeared, a key way that its spread was mitigated was through contact tracing. Contact tracing is the process of tracking how the virus spread by identifying people who may have come in contact with an infected person.
+When COVID-19 first appeared, manual tracing was deployed to mitigate the initial outbreak. Contact tracing is the process of tracking how the virus spreads by identifying people who may have come in contact with an infected person, and then asking them to isolate and get tested.
 
-However, the pandemic revealed that the COVID-19 disease can spread faster than manual contact tracing. Thus, the objective of this project is to automate contact tracing by incorporating machine learning using GNNs, which will allow quicker contact tracing, and possibly lead to a greater mitigation of the spread of COVID-19 when compared to manual contact tracing.
+However, the pandemic revealed that the COVID-19 disease can spread faster than manual contact tracing \cite{flaxman2020estimating}. Thus, the objective of this project is to automate contact tracing by incorporating machine learning using GNNs, which will allow quicker contact tracing, and possibly lead to a greater mitigation of the spread of COVID-19 when compared to manual contact tracing.
 
 % - What is the big picture? What is the main objective of this project?
 % - Why is this project interesting?
@@ -120,7 +121,7 @@ We used the foursquare dataset to build a contact tracing graph of Austin, Texas
 
 We used data only from July 1st, 2020 to generate a sample network. Our nodes were all the unique device IDs in the dataset. For our edges, we used the following logic: we ignored entries whose dwell time was less than 60 minutes, as we assumed less than an hour was not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine an arrival and departure time for each entry. We then compared every entry with every other entry and checked if there was any overlap between their dwelling times. If there was, we considered this as a contact between the two people. We then added an edge between the two people in our graph.
 
-In addition, we created a sample Susceptible-Infected simulation using the dataset. We did not include a recovery/death or incubation period in this simulation model mainly because we only performed the simulation over one day. To perform the simulation, we did the following: We randomly selected 20\% of the nodes in the graph to be infected. Next, with each time step (1 hour), we looked at all the neighbors of each infected node and infected them with a probability of 1.0, so we assumed any contact led to an infection. We did this for a 24 hour time range.
+In addition, we created a sample Susceptible-Infected simulation using the data from July 1st, 2020. We did not include a recovery/death or incubation period in this simulation model mainly because we only performed the simulation over one day. To perform the simulation, we did the following: We randomly selected 20\% of the nodes in the graph to be infected. Next, with each time step (1 hour), we looked at all the neighbors of each infected node and infected them with a probability of 1.0, so we assumed any contact led to an infection. We did this for 24 hours.
 
 
 \Section{Experimental Setup and Results}
@@ -152,7 +153,7 @@ In Figure \ref{fig:my_label3}, we can see the number of infected nodes over time
 
 
 \Section{Conclusion and Short-Term Plans}
-Through the analysis of the network, we were able to determine the network of contacts is a combination of an exponential and scale-free network. Some people came into contact with many other people where as others stayed within their cliques. The simulation showed that the virus initially spread slowly, but the rate of infection increased rapidly. As people with many connections became infected, the virus was able to spread significantly faster.
+Through the analysis of the network, we were able to determine the network of contacts is a combination of an exponential and scale-free network. Some people came into contact with many other people where as others stayed within their cliques. The simulation showed that initially, the number of infected people stayed relatively constant. However, after 12 hours, the number of infected people increase at a fairly constant rate.
 
 
 For M2, we plan to do a more complete analysis of the network by considering both July and August data. We also plan to run more simulations. Specifically, we want to make them more realistic by accounting for the incubation period, deaths from the virus, and the fact that people may not be able to get infected again after they have recovered. We also plan to implement GNNs at a small scale to perform link prediction. Specifically, we will use GNNs to predict the people that come into contact with previously infected people. By predicting contact between people, we will be able to predict the spread of the virus.

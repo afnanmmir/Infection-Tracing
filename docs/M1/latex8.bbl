@@ -5,6 +5,13 @@ A.~Bousquet, W.~H. Conrad, S.~O. Sadat, N.~Vardanyan, and Y.~Hong.
 \newblock Deep learning forecasting using time-varying parameters of the sird
   model for covid-19, February 22 2022.
 
+\bibitem{flaxman2020estimating}
+S.~Flaxman, S.~Mishra, A.~Gandy, H.~J.~T. Unwin, T.~A. Mellan, H.~Coupland, and
+  et~al.
+\newblock Estimating the number of infections and the impact of
+  non-pharmaceutical interventions on covid-19 in european countries: technical
+  description update, 2020.
+
 \bibitem{SEIRD-LSTM}
 T.~Geroski, A.~Blagojevic, D.~M. Cvetković, A.~M. Cvetković, I.~Lorencin,
   S.~B. Šegota, D.~Milovanovic, D.~Baskic, Z.~Car, and N.~Filipovic.
