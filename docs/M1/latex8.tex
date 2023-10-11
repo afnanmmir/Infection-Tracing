@@ -12,7 +12,6 @@
 \usepackage{times}
 \usepackage{graphicx}
 \usepackage{subcaption}
-\usepackage[ruled, linesnumbered]{algorithm2e}
 
 
 %\documentstyle[times,art10,twocolumn,latex8]{article}
@@ -130,7 +129,7 @@ In Figure \ref{fig:my_label}, we can see the contact network after one day.
 \begin{figure}
     \centering
     \includegraphics[width=0.25\textwidth]{imgs/one_day_net.png}
-    \caption{Network after one day}
+    \caption{Contact network after one day}
     \label{fig:my_label}
 \end{figure}
 Network properties for this network were also calculated. The average node degree is 10.41, the network diameter is 14, the average clustering coefficient is 0.687, and the average path length is 4.784. In addition to this, the degree distribution was mainly an exponential distribution with subtle hints at a power-law. This can also be seen from the network itself, as we can see the presence of a few hubs in the network. This makes sense, as we should expect a social network to be scale-free, but we do not have all the data points, so it is not fully scale-free on the sample network.
@@ -144,20 +143,21 @@ In addition, we can see the resulting infected graph from our simulation in Figu
 \end{figure}
 In this network, it is important to note that all of the visible nodes are infected, and the edges represent how the infection has been spread. We can see that not a lot of infected nodes have spread the disease, but the ones that have created one connected component that show the beginnings of a scale-free network. 
 
-In Figure \ref{fig:my_label3}, we can see the number of infected nodes over time. We can see that the infection doesn't really start to spread until the latter half of the day, and then looks as though the rate of infection is about to increase exponentially before the day ends. This lines up with our intuition, as we would expect the infection to spread faster as more people get infected.
+In Figure \ref{fig:my_label3}, we can see the number of infected nodes over time. We can see that the infection doesn't spread much until the latter half of the day, after which it spreads steadily. We expect the rate of spread to be exponential when we simulate the spread over more days. This lines up with our intuition, as we would expect the infection to spread faster as more people get infected.
 \begin{figure}
     \centering
     \includegraphics[width=0.28\textwidth]{imgs/infected_over_time.png}
-    \caption{Number of infected nodes over time}
+    \caption{Number of infected nodes over 24 hours}
     \label{fig:my_label3}
 \end{figure}
 
 
 \Section{Conclusion and Short-Term Plans}
-Through the analysis of the network, we were able to determine the network of contacts is a combination of an exponential and scale-free network. Some people came into contact with many other people where as others stayed within their cliques. The simulation showed that initially, the number of infected people stayed relatively constant. However, after 12 hours, the number of infected people increase at a fairly constant rate.
+Through the analysis of the network, we were able to determine the network of contacts is a combination of an exponential and scale-free network. Some people came into contact with many other people whereas others stayed within their cliques. The simulation showed that the number of infected people initially stayed relatively constant, but after 12 hours, infections began increasing steadily.
 
+For M2, we plan to do a more complete analysis of the network by considering both July and August data. We also plan to run more realistic simulations by accounting for the incubation period, deceased people, and recovered people. We also plan to implement GNNs at a small scale to perform link prediction. Specifically, we will use GNNs to predict the people that come into contact with previously infected people, allowing us to predict the spread of the virus.
 
-For M2, we plan to do a more complete analysis of the network by considering both July and August data. We also plan to run more simulations. Specifically, we want to make them more realistic by accounting for the incubation period, deaths from the virus, and the fact that people may not be able to get infected again after they have recovered. We also plan to implement GNNs at a small scale to perform link prediction. Specifically, we will use GNNs to predict the people that come into contact with previously infected people. By predicting contact between people, we will be able to predict the spread of the virus.
+% For M2, we plan to do a more complete analysis of the network by considering both July and August data. We also plan to run more realistic simulations by accounting for the incubation period, deceased people, and recovered people. We also plan to implement GNNs at a small scale to perform link prediction. Specifically, we will use GNNs to predict the people that come into contact with previously infected people. By predicting contact between people, we will be able to predict the spread of the virus.
 
 %------------------------------------------------------------------------- 
 % \Section{Objectives and Deliverables}
