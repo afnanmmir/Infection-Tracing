@@ -116,7 +116,7 @@ GNNs can also be used for link prediction, which is useful for contact tracing \
 
 \Section{Approach}
 
-We used the foursquare dataset to build a contact tracing graph of Austin, Texas. Each entry contains data such as a unique device ID, a location ID, UTC date and hour, and a dwell time, which all tell us when a person visited a location and for how much time. Given this data, we generated a contact tracing graph for people in Austin.
+We used the foursquare dataset to build a contact tracing graph of Austin, Texas \cite{DVN/PFLAH4_2020}. Each entry contains data such as a unique device ID, a location ID, UTC date and hour, and a dwell time, which all tell us when a person visited a location and for how much time. Given this data, we generated a contact tracing graph for people in Austin.
 
 We used data only from July 1st, 2020 to generate a sample network. Our nodes were all the unique device IDs in the dataset. For our edges, we used the following logic: we ignored entries whose dwell time was less than 60 minutes, as we assumed less than an hour was not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine an arrival and departure time for each entry. We then compared every entry with every other entry and checked if there was any overlap between their dwelling times. If there was, we considered this as a contact between the two people. We then added an edge between the two people in our graph.
 
