@@ -81,7 +81,7 @@ Mathematical models, classical ML models, and graph-based ML models have been us
 
 The SEIRD model is a mathematical model that predicts the change in Susceptible, Exposed, Infected, Recovered, and Deceased people over time by using differential equations. \cite{SEIRD-LSTM}. SIR is simpler version of the SIERD model \cite{SIR}.
 
-The LSTM is a ML model that has also been used to predict the number of cases over time \cite{SEIRD-LSTM}. A hybrid of SIRD and LSTM helps account for time dependent parameters of the SIRD model \cite{SIRD-LSTM-hybrid}. Also, GNNs, which are graph-based ML models, have been used on mobility data to predict virus spread \cite{positivity-hospitalization-GNN} for link prediction for contact tracing \cite{contact-tracing-GNN}.
+The LSTM is an ML model that has been used to predict the number of cases over time \cite{SEIRD-LSTM}. A hybrid of SIRD and LSTM helps account for time dependent parameters of the SIRD model \cite{SIRD-LSTM-hybrid}. Also, GNNs, which are graph-based ML models, have been used on mobility data to predict virus spread and for link prediction for contact tracing \cite{positivity-hospitalization-GNN}\cite{contact-tracing-GNN}.
 % The LSTM is a ML model that has also been used to predict the number of cases over time \cite{SEIRD-LSTM}. Another approach uses a hybrid of SIRD and LSTM to account for time dependent parameters of the SIRD model \cite{SIRD-LSTM-hybrid}.
 % Other approaches include the Long Short-Term Memory (LSTM) model \cite{SEIRD-LSTM} and a hybrid of SIRD and LSTM \cite{SIRD-LSTM-hybrid}.
 
@@ -137,7 +137,7 @@ The LSTM is a ML model that has also been used to predict the number of cases ov
 
 We used the foursquare dataset to build a contact graph of Austin, TX \cite{DVN/PFLAH4_2020}. Each entry contains a device ID, a location ID, UTC date and hour, and a dwell time, which tell us when and how long a person visited a location. Given this data, we generated a contact graph of Austin.
 
-We used data only from July 1st, 2020 to generate a sample network. Our nodes were all the unique device IDs in the dataset, which correspond to people. For our edges, we used the following logic: we ignored entries with a dwell time less than 60 minutes, as we assumed this not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine the arrival and departure time interval for each entry. We then compared every entry with every other entry. If the entries' locations were the same and if intervals overlapped by at least 60 minutes, we considered this as a contact between the two people and added an edge between them. Figure \ref{fig:toy_label} shows an example of the contact network was created. 
+We used data only from July 1st, 2020 to generate a sample network. Our nodes were all the unique device IDs in the dataset, which correspond to people. For our edges, we used the following logic: we ignored entries with a dwell time less than 60 minutes, as we assumed this not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine the arrival and departure time interval for each entry. We then compared every entry with every other entry. If the entries' locations were the same and if intervals overlapped by at least 60 minutes, we considered this as a contact between the two people and added an edge between them. Figure \ref{fig:toy_label} shows an example of a sample contact network generation. 
 
 \begin{figure}
     \centering
@@ -148,7 +148,7 @@ We used data only from July 1st, 2020 to generate a sample network. Our nodes we
 
 % there was an overlap of at least 60 minutes in their dwelling times, we considered this as a contact between the two people. We then added an edge between the two people in our graph.
 
-Separately, we also created a sample Susceptible-Infected simulation using data from July 1st, 2020. We did not include a recovery/death or incubation period in this model mainly because we only performed the simulation over one day. For the simulation, we did the following: at hour 0, we randomly infected 20\% of the nodes in the graph. Then we looked at all contacts between people for hour 1, and if an infected person came into contact with a susceptible person, we infected the susceptible person with a probability of 1. We repeated the previous step for the remaining 22 hours of the day.
+Separately, we also created a sample Susceptible-Infected simulation using data from July 1st, 2020. We did not include a recovery/death or incubation period in this model mainly because we only performed the simulation over one day. For the simulation, we did the following: at hour 0, we randomly infected 20\% of the nodes in the graph. Then we looked at all contacts between people for hour 1, and if an infected person came into contact with a susceptible person, we created an edge between them and infected the susceptible person with a probability of 1. We repeated the previous step for the remaining 22 hours of the day.
 
 % Then for each hour from 1 to 23, we looked at all contacts between people, and if an infected person came into contact with a susceptible person, we infected the susceptible person with a probability of 1.0. We did this for 24 hours.
 
@@ -190,7 +190,7 @@ For M2, we plan to do a more complete analysis of the network by considering bot
 
 % For this milestone, Afnan generated and analyzed the contact network and Jay created and analyzed the infection spread simulation.
 
-For this milestone, Afnan generated and analyzed the contact network for July 1st, 2020, and Jay created and analyzed the simulation of the hourly spread of the virus.
+For this milestone, Afnan generated and analyzed the contact network for July 1st, 2020, and Jaykumar created and analyzed the simulation of the hourly spread of the virus.
 
 
 % For M2, we plan to do a more complete analysis of the network by considering both July and August data. We also plan to run more realistic simulations by accounting for the incubation period, deceased people, and recovered people. We also plan to implement GNNs at a small scale to perform link prediction. Specifically, we will use GNNs to predict the people that come into contact with previously infected people. By predicting contact between people, we will be able to predict the spread of the virus.
