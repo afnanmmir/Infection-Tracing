@@ -117,11 +117,15 @@ GNNs can also be used for link prediction, which is useful for contact tracing \
 
 \Section{Approach}
 
-We used the foursquare dataset to build a contact tracing graph of Austin, Texas \cite{DVN/PFLAH4_2020}. Each entry contains data such as a unique device ID, a location ID, UTC date and hour, and a dwell time, which all tell us when a person visited a location and for how much time. Given this data, we generated a contact tracing graph for people in Austin.
+% We used the foursquare dataset to build a contact graph of Austin, Texas \cite{DVN/PFLAH4_2020}. Each entry contains data such as a device ID, a location ID, UTC date and hour, and a dwell time, which all tell us when a person visited a location and for how much time. Given this data, we generated a contact graph for people in Austin.
 
-We used data only from July 1st, 2020 to generate a sample network. Our nodes were all the unique device IDs in the dataset, which correlate to people. For our edges, we used the following logic: we ignored entries whose dwell time was less than 60 minutes, as we assumed less than an hour was not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine the arrival and departure time for each entry. We then compared every entry with every other entry. If the entries' locations were the same and if there was an overlap of at least 60 minutes in their dwelling times, we considered this as a contact between the two people. We then added an edge between the two people in our graph.
+We used the foursquare dataset to build a contact graph of Austin, TX \cite{DVN/PFLAH4_2020}. Each entry contains data such as a device ID, a location ID, UTC date and hour, and a dwell time, which tell us when and how long a person visited a location. Given this data, we generated a contact graph of Austin.
 
-In addition, we created a sample Susceptible-Infected simulation using the data from July 1st, 2020. This was separate from creating the network. We did not include a recovery/death or incubation period in this simulation model mainly because we only performed the simulation over one day. To perform the simulation, we did the following: at hour 0, we randomly selected 20\% of the nodes in the graph to be infected. Then for the first hour, we looked at all contacts between people, and if an infected person came into contact with a susceptible person, we infected the susceptible person with a probability of 1.0. We iterated this process for 24 hours.
+We used data only from July 1st, 2020 to generate a sample network. Our nodes were all the unique device IDs in the dataset, which correlate to people. For our edges, we used the following logic: we ignored entries with a dwell time less than 60 minutes, as we assumed this not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine the arrival and departure time interval for each entry. We then compared every entry with every other entry. If the entries' locations were the same and if intervals overlapped by at least 60 minutes, we considered this as a contact between the two people and added an edge between them.
+
+% there was an overlap of at least 60 minutes in their dwelling times, we considered this as a contact between the two people. We then added an edge between the two people in our graph.
+
+Separately, we also created a sample Susceptible-Infected simulation using the data from July 1st, 2020. We did not include a recovery/death or incubation period in this model mainly because we only performed the simulation over one day. To perform the simulation, we did the following: at hour 0, we randomly selected 20\% of the nodes in the graph to be infected. Then for the first hour, we looked at all contacts between people, and if an infected person came into contact with a susceptible person, we infected the susceptible person with a probability of 1.0. We iterated this process for 24 hours.
 
 % Then for each hour from 1 to 23, we looked at all contacts between people, and if an infected person came into contact with a susceptible person, we infected the susceptible person with a probability of 1.0. We did this for 24 hours.
 
@@ -150,7 +154,7 @@ In this network, it is important to note that all of the visible nodes are infec
 In Figure \ref{fig:my_label3}, we can see the number of infected nodes over time. We can see that the infection doesn't spread much until the latter half of the day, after which it spreads steadily. We expect the rate of spread to be exponential when we simulate the spread over more days. This lines up with our intuition, as we would expect the infection to spread faster as more people get infected.
 \begin{figure}
     \centering
-    \includegraphics[width=0.28\textwidth]{imgs/infected_over_time.png}
+    \includegraphics[width=0.30\textwidth]{imgs/infected_over_time.png}
     \caption{Number of infected nodes over 24 hours}
     \label{fig:my_label3}
 \end{figure}
