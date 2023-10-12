@@ -41,7 +41,7 @@ afnanmir@utexas.edu\\
 \thispagestyle{empty}
 
 \begin{abstract}
-The COVID-19 pandemic has shown that contact tracing is a key way to mitigate the spread of the disease. However, manual contact tracing is slow and can be inaccurate. Thus, this project aims to automate contact tracing by utilizing Graph Neural Networks (GNNs). In our preliminary work on network analysis, we found that the contact network is a combination of an exponential and scale-free network. Also, our simulation showed that during the first half of the day, the infection does not spread much, but with some time, it starts spreading steadily. 
+The COVID-19 pandemic showed that contact tracing helped mitigate the spread of the virus. However, manual contact tracing is slow and can be inaccurate. Thus, this project aims to automate contact tracing by utilizing Graph Neural Networks (GNNs). Our preliminary work on network analysis showed that the contact network is a mix of an exponential and scale-free network. Also, our simulation showed that during the first 12 hours, the infection does not spread much, but then it starts spreading steadily. 
 \end{abstract}
 
 
@@ -50,7 +50,7 @@ The COVID-19 pandemic has shown that contact tracing is a key way to mitigate th
 
 When COVID-19 first appeared, manual tracing was deployed to mitigate the initial outbreak. Contact tracing is the process of tracking how the virus spreads by identifying people who may have come in contact with an infected person, and then asking them to isolate and get tested.
 
-However, the pandemic revealed that the COVID-19 disease can spread faster than manual contact tracing \cite{flaxman2020estimating}. Thus, the objective of this project is to automate contact tracing by incorporating machine learning using GNNs to hopefully increase the mitigation of the spread of COVID-19 when compared to manual contact tracing.
+However, the pandemic revealed that the COVID-19 virus spread faster than manual contact tracing \cite{flaxman2020estimating}. Thus, this project's objective is to automate contact tracing by incorporating machine learning using GNNs to hopefully increase the mitigation of the spread of COVID-19 when compared to manual contact tracing.
 
 % - What is the big picture? What is the main objective of this project?
 % - Why is this project interesting?
@@ -58,22 +58,38 @@ However, the pandemic revealed that the COVID-19 disease can spread faster than 
 %------------------------------------------------------------------------- 
 
 \Section{Previous Work}
-Methods for predicting the spread of COVID-19 include mathematical models, traditional ML models, and graph-based ML models. 
+% Methods for predicting the spread of COVID-19 include mathematical models, traditional ML models, and graph-based ML models. 
 
-One example of a mathematical model is the SEIRD model, which attempts to predict the change in Susceptible, Exposed, Infected, Recovered, and Deceased people over time through use of differential equations. This model is used to simulate the spread of the virus over time \cite{SEIRD-LSTM}.
-% (https://www.frontiersin.org/articles/10.3389/fpubh.2021.727274/full)
-SIR is simpler version of the SIERD model that attempts to perform the same task \cite{SIR}.
-% https://www.medrxiv.org/content/10.1101/2020.05.15.20103077v2
+% One example of a mathematical model is the SEIRD model, which attempts to predict the change in Susceptible, Exposed, Infected, Recovered, and Deceased people over time through use of differential equations. This model is used to simulate the spread of the virus over time \cite{SEIRD-LSTM}.
+% % (https://www.frontiersin.org/articles/10.3389/fpubh.2021.727274/full)
+% SIR is simpler version of the SIERD model that attempts to perform the same task \cite{SIR}.
+% % https://www.medrxiv.org/content/10.1101/2020.05.15.20103077v2
 
-Traditional ML models have also been used to predict the spread of COVID-19. For example, Long Short-Term Memory (LSTM) models have been used to predict the number of cases over time \cite{SEIRD-LSTM}. 
-% https://www.frontiersin.org/articles/10.3389/fpubh.2021.727274/full
-Another approach utilizes a hybrid of SIRD and LSTM to account for time dependent parameters of the SIRD model \cite{SIRD-LSTM-hybrid}.
-% https://www.nature.com/articles/s41598-022-06992-0
+% Traditional ML models have also been used to predict the spread of COVID-19. For example, Long Short-Term Memory (LSTM) models have been used to predict the number of cases over time \cite{SEIRD-LSTM}. 
+% % https://www.frontiersin.org/articles/10.3389/fpubh.2021.727274/full
+% Another approach utilizes a hybrid of SIRD and LSTM to account for time dependent parameters of the SIRD model \cite{SIRD-LSTM-hybrid}.
+% % https://www.nature.com/articles/s41598-022-06992-0
 
-Furthermore, graph-based ML models, such as GNNs, have been used on mobility data to predict the number of cases and hospitalizations \cite{positivity-hospitalization-GNN}.
-% https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10066232/#:~:text=Message%20passing%20instances%20of%20GNNs,as%20well%20as%20hospitalization%20rates.
-GNNs can also be used for link prediction, which is useful for contact tracing \cite{contact-tracing-GNN}. 
-% https://proceedings.neurips.cc/paper_files/paper/2018/file/53f0d7c537d99b3824f0f99d62ea2428-Paper.pdf
+% Furthermore, graph-based ML models, such as GNNs, have been used on mobility data to predict the number of cases and hospitalizations \cite{positivity-hospitalization-GNN}.
+% % https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10066232/#:~:text=Message%20passing%20instances%20of%20GNNs,as%20well%20as%20hospitalization%20rates.
+% GNNs can also be used for link prediction, which is useful for contact tracing \cite{contact-tracing-GNN}. 
+% % https://proceedings.neurips.cc/paper_files/paper/2018/file/53f0d7c537d99b3824f0f99d62ea2428-Paper.pdf
+
+% Methods for predicting the spread of COVID-19 include mathematical models, traditional ML models, and graph-based ML models. 
+
+Mathematical models, classical ML models, and graph-based ML models have been used to predict virus spread. 
+
+The SEIRD model is a mathematical model that predicts the change in Susceptible, Exposed, Infected, Recovered, and Deceased people over time by using differential equations. \cite{SEIRD-LSTM}. SIR is simpler version of the SIERD model \cite{SIR}.
+
+The LSTM is a ML model that has also been used to predict the number of cases over time \cite{SEIRD-LSTM}. A hybrid of SIRD and LSTM helps account for time dependent parameters of the SIRD model \cite{SIRD-LSTM-hybrid}. Also, GNNs, which are graph-based ML models, have been used on mobility data to predict virus spread \cite{positivity-hospitalization-GNN} for link prediction for contact tracing \cite{contact-tracing-GNN}.
+% The LSTM is a ML model that has also been used to predict the number of cases over time \cite{SEIRD-LSTM}. Another approach uses a hybrid of SIRD and LSTM to account for time dependent parameters of the SIRD model \cite{SIRD-LSTM-hybrid}.
+% Other approaches include the Long Short-Term Memory (LSTM) model \cite{SEIRD-LSTM} and a hybrid of SIRD and LSTM \cite{SIRD-LSTM-hybrid}.
+
+% Also, GNNs, which are graph-based ML models, have been used on mobility data to predict the number of cases and hospitalizations \cite{positivity-hospitalization-GNN}. GNNs have also been used for link prediction, which is useful for contact tracing \cite{contact-tracing-GNN}. 
+
+% Also, GNNs, which are graph-based ML models, have been used on mobility data to predict virus spread \cite{positivity-hospitalization-GNN}. GNNs have also been used for link prediction for contact tracing \cite{contact-tracing-GNN}. 
+% Also, GNNs, which are graph-based ML models, have been used on mobility data to predict virus spread \cite{positivity-hospitalization-GNN} for link prediction for contact tracing \cite{contact-tracing-GNN}. 
+
 
 % Feature Based Approach:
 %     - Multivariate Logistic Regression to predict infectious risk
@@ -121,11 +137,18 @@ GNNs can also be used for link prediction, which is useful for contact tracing \
 
 We used the foursquare dataset to build a contact graph of Austin, TX \cite{DVN/PFLAH4_2020}. Each entry contains a device ID, a location ID, UTC date and hour, and a dwell time, which tell us when and how long a person visited a location. Given this data, we generated a contact graph of Austin.
 
-We used data only from July 1st, 2020 to generate a sample network. Our nodes were all the unique device IDs in the dataset, which correspond to people. For our edges, we used the following logic: we ignored entries with a dwell time less than 60 minutes, as we assumed this not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine the arrival and departure time interval for each entry. We then compared every entry with every other entry. If the entries' locations were the same and if intervals overlapped by at least 60 minutes, we considered this as a contact between the two people and added an edge between them.
+We used data only from July 1st, 2020 to generate a sample network. Our nodes were all the unique device IDs in the dataset, which correspond to people. For our edges, we used the following logic: we ignored entries with a dwell time less than 60 minutes, as we assumed this not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine the arrival and departure time interval for each entry. We then compared every entry with every other entry. If the entries' locations were the same and if intervals overlapped by at least 60 minutes, we considered this as a contact between the two people and added an edge between them. Figure \ref{fig:toy_label} shows an example of the contact network was created. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.30\textwidth]{imgs/Network_Toy.png}
+    \caption{Example of contact network generation}
+    \label{fig:toy_label}
+\end{figure}
 
 % there was an overlap of at least 60 minutes in their dwelling times, we considered this as a contact between the two people. We then added an edge between the two people in our graph.
 
-Separately, we also created a sample Susceptible-Infected simulation using the data from July 1st, 2020. We did not include a recovery/death or incubation period in this model mainly because we only performed the simulation over one day. To perform the simulation, we did the following: at hour 0, we randomly selected 20\% of the nodes in the graph to be infected. Then for the first hour, we looked at all contacts between people, and if an infected person came into contact with a susceptible person, we infected the susceptible person with a probability of 1.0. We iterated this process for 24 hours.
+Separately, we also created a sample Susceptible-Infected simulation using data from July 1st, 2020. We did not include a recovery/death or incubation period in this model mainly because we only performed the simulation over one day. For the simulation, we did the following: at hour 0, we randomly infected 20\% of the nodes in the graph. Then we looked at all contacts between people for hour 1, and if an infected person came into contact with a susceptible person, we infected the susceptible person with a probability of 1. We repeated the previous step for the remaining 22 hours of the day.
 
 % Then for each hour from 1 to 23, we looked at all contacts between people, and if an infected person came into contact with a susceptible person, we infected the susceptible person with a probability of 1.0. We did this for 24 hours.
 
@@ -149,7 +172,7 @@ In addition, we can see the resulting infected graph from our simulation in Figu
     \caption{Infected graph after one day}
     \label{fig:my_label2}
 \end{figure}
-In this network, it is important to note that all of the visible nodes are infected, and the edges represent how the infection has been spread. We can see that not a lot of infected nodes have spread the disease, but the ones that have created one connected component that show the beginnings of a scale-free network. 
+In this network, it is important to note that all of the visible nodes are infected, and the edges represent how the infection has been spread. We can see that not a lot of infected nodes have spread the virus, but the ones that have created one connected component that show the beginnings of a scale-free network. 
 
 In Figure \ref{fig:my_label3}, we can see the number of infected nodes over time. We can see that the infection doesn't spread much until the latter half of the day, after which it spreads steadily. We expect the rate of spread to be exponential when we simulate the spread over more days. This lines up with our intuition, as we would expect the infection to spread faster as more people get infected.
 \begin{figure}
@@ -165,7 +188,9 @@ Through the analysis of the network, we were able to determine the network of co
 
 For M2, we plan to do a more complete analysis of the network by considering both July and August data. We also plan to run more realistic simulations by accounting for the incubation period and deceased/recovered people. We also plan to implement GNNs at a small scale to perform link prediction. Specifically, we will use GNNs to predict the people that come into contact with previously infected people, allowing us to predict the spread of the virus.
 
-For this milestone, Afnan spent most of the time performing the network generation and analysis for the one day sample network, and Jay focused on generating the simulation of the spread of the infection.
+% For this milestone, Afnan generated and analyzed the contact network and Jay created and analyzed the infection spread simulation.
+
+For this milestone, Afnan generated and analyzed the contact network for July 1st, 2020, and Jay created and analyzed the simulation of the hourly spread of the virus.
 
 
 % For M2, we plan to do a more complete analysis of the network by considering both July and August data. We also plan to run more realistic simulations by accounting for the incubation period, deceased people, and recovered people. We also plan to implement GNNs at a small scale to perform link prediction. Specifically, we will use GNNs to predict the people that come into contact with previously infected people. By predicting contact between people, we will be able to predict the spread of the virus.
