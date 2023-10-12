@@ -38,11 +38,4 @@ R.~S. Yadav.
 \newblock Mathematical modeling and simulation of sir model for covid-2019
   epidemic outbreak: A case study of india, May 21 2020.
 
-\bibitem{link-prediction-GNN}
-M.~Zhang and Y.~Chen.
-\newblock Link prediction based on graph neural networks.
-\newblock In S.~Bengio, H.~Wallach, H.~Larochelle, K.~Grauman, N.~Cesa-Bianchi,
-  and R.~Garnett, editors, {\em Advances in Neural Information Processing
-  Systems}, volume~31. Curran Associates, Inc., 2018.
-
 \end{thebibliography}
