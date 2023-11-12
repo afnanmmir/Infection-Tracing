@@ -212,8 +212,15 @@ Here are the additional featues the generated for every node (person) in the gra
     \label{fig:my_label}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.23\textwidth]{imgs/5_day_log_log_degree_distribution.png}
+    \caption{5-Day Contact Network Degree Distribution}
+    \label{fig:deg_dist}
+\end{figure}
+
 In Figure \ref{fig:my_label}, we can see the 5-Day Contact Network.
-Network properties for this network were also calculated. The average node degree is 4.278, the network diameter is 20, the average clustering coefficient is 0.432, and the average path length is 6.95. In addition to this, the degree distribution was mainly an exponential distribution with subtle hints at a power-law. This can also be seen from the network itself, as we can see the presence of a few hubs in the network. This makes sense, as we should expect a social network to be scale-free, but we do not have all the data points, so it is not fully scale-free on the sample network.
+Network properties for this network were also calculated. The average node degree is 4.278, the network diameter is 20, the average clustering coefficient is 0.432, and the average path length is 6.95. In addition to this, the degree distribution was mainly an exponential distribution with subtle hints at a power-law as shown in Figure \ref{fig:deg_dist}. This can also be seen from the network itself, as we can see the presence of a few hubs in the network. This makes sense, as we should expect a social network to be scale-free, but we do not have all the data points, so it is not fully scale-free on the sample network.
 
 
 \begin{figure}
@@ -225,7 +232,7 @@ Network properties for this network were also calculated. The average node degre
 
 In addition, the simulation results are shown in Figure \ref{fig:simulation_results}. The simulation results show that the number of infected people initially increases, but then decreases significant and approached 0. Whereas the number of recovered people exhibit the opposite behavior. This makes sense since the infected people recover after seven days can no longer become susptible again. Also, the number of susceptible people decreases over time, which makes sense since they are getting infected and recovering. The maximum number of infected people on any given day is about 11,500 and the total number of people infected over the simulation is about 14,300.
 
-It is important to node that this simulation was run on limited data. The total number of nodes in the simulation, which is the total number of people, is around 45,000, whereas the actual population in Austin, TX in 2020 was around 2 million. Furthermore, this model assumes a closed population, which is not the case in Austin, TX. People are constantly moving in and out of Austin, TX. Thus, the simulation results are not representative of the actual spread of the virus in Austin, TX.  However, this simulation does show that the virus can spread quickly, as seen in the first week of the simulation. Thus, it is important to have an efficient and accurate contact tracing system to mitigate the spread of the virus.
+It is important to note that this simulation was run on limited data. The total number of nodes in the simulation, which is the total number of people, is around 45,000, whereas the actual population in Austin, TX in 2020 was around 2 million. Furthermore, this model assumes a closed population, which is not the case in Austin, TX. People are constantly moving in and out of Austin, TX. Thus, the simulation results are not representative of the actual spread of the virus in Austin, TX.  However, this simulation does show that the virus can spread quickly, as seen in the first week of the simulation. Thus, it is important to have an efficient and accurate contact tracing system to mitigate the spread of the virus.
 
 \begin{figure}
     \centering
