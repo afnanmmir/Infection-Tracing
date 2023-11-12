@@ -9,3 +9,4 @@ graph_creation/*.gexf
 graph_creation/test.ipynb
 simulation/*.gif
 simulation/*.mp4
+link_prediction_graph_creation/contact_graphs/*
