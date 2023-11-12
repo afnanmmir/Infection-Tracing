@@ -181,16 +181,8 @@ Our first goal was to create a baseline link prediction model. We used the node2
 
 A sample example of training and testing data is shown in Figure \ref{fig:toy_edges_label}. The black lines representing training data and red lines represent testing data. The solid lines represent positive edges and dotted lines represent negative edges. The training data is used to train the model, and the testing data is used to evaluate the model.
 
-After creating the baseline model, we searched for ways to improve the model's performance on the graph. This would include performing feature engineering techniques to add dimensions to our node embeddings and exploring the use of other GNN architectures such as GCN and/or GAT \cite{kipf2017semisupervised} \cite{veličković2018graph}. We hoped to be able to finetune the model and improve its performance to the point we could use it to perform link prediction on the Temporal Contact Networks. 
+After creating the baseline model, we searched for ways to improve the model's performance on the graph. This would include performing feature engineering techniques to add dimensions to our node embeddings and exploring the use of other GNN architectures such as the Graph Convolutional Network (GCN) and/or the Graph Attention Network (GAT) \cite{kipf2017semisupervised} \cite{veličković2018graph}. We hoped to be able to finetune the model and improve its performance to the point we could use it to perform link prediction on the Temporal Contact Networks. 
 
-Here are the additional featues the generated for every node (person) in the graph:
-\begin{itemize}
-    \item Average location travelled to per day
-    \item Average distance travelled per day
-    \item Gender
-    \item SAG Score
-    \item Age
-\end{itemize}
 % Then for each hour from 1 to 23, we looked at all contacts between people, and if an infected person came into contact with a susceptible person, we infected the susceptible person with a probability of 1.0. We did this for 24 hours.
 
 % Next, with each time step (1 hour), we looked at all the neighbors of each infected node and infected them with a probability of 1.0, so we assumed any contact led to an infection. We did this for 24 hours.
@@ -243,6 +235,23 @@ It is important to note that this simulation was run on limited data. The total 
 
 In addition, the analysis of Clustering Coefficient and Average Node Degree for the Temporal Contact Networks are shown in Figure \ref{fig:temporal_stats}. The results demonstrate a periodic pattern. It is evident that the period is 7 days, and the peaks occur on the weekends. These results makes sense since people are more likely to go out and socialize on the weekends. This increase in socialization on the weekends leads to more contacts, which leads to a higher clustering coefficient and average node degree.
 
+After performing the analysis on the 5-Day Contact Network and Temporal Contact Networks, we moved towards performing link prediction on the 5-Day Contact Network. For our baseline model, as stated in the approach, we used a GraphSAGE model with node2vec embeddings. We trained the model for 1000 epochs on a 90/10 train/test split with the Adam optimizer. The model achieved an AUC score of 0.49 on the test data. We can see that this performs worse than random guessing. Part of this could be due to the fact that no internal node features were used in the node embeddings.
+
+To improve upon this, we performed feature engineering to generate additional features for each node. Here are the additional featues the generated for every node (person) in the graph:
+\begin{itemize}
+    \item Average location travelled to per day
+    \item Average distance travelled per day
+    \item Gender
+    \item SAG Score
+    \item Age
+\end{itemize}
+By adding these features to the node2vec embeddings, we were able to improve the AUC score to 0.63, which is a significant improvement over the baseline model. We can see that the additional features helped the model learn the graph structure better. 
+
+We then attempted to improve upon this by taking the features we created and normalizing them before appending them. We saw that the features were all of different scales compared to each other and the node2vec embeddings, so we hypothesized that normalizing the features would improve the model's performance. This, again, improved our model's performance, as we were able to achieve an AUC score of 0.75.
+
+Finally, we attempted different model architectures to see if we could improve the model's performance. More specifically, we tried using the GCN model. With the same features and data, we were able to achieve an AUC score of 0.91, which is a significant improvement over the previous model.
+
+From these performance metrics, we can see that performing link prediction on the Temporal Contact Networks is a feasible task. We can also see that the GCN model performs significantly better than the GraphSAGE model. Thus, we plan to use the GCN model to perform link prediction on the Temporal Contact Networks for M3.
 % In addition, we can see the resulting infected graph from our simulation in Figure \ref{fig:my_label2}.
 % \begin{figure}
 %     \centering
