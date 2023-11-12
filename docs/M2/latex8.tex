@@ -132,12 +132,14 @@ The LSTM is an ML model that has been used to predict the number of cases over t
 
 
 \Section{Approach}
-
+\subsection{Network Generation and Analysis}
 % We used the foursquare dataset to build a contact graph of Austin, Texas \cite{DVN/PFLAH4_2020}. Each entry contains data such as a device ID, a location ID, UTC date and hour, and a dwell time, which all tell us when a person visited a location and for how much time. Given this data, we generated a contact graph for people in Austin.
 
 We used the foursquare dataset to build a contact graph of Austin, TX \cite{DVN/PFLAH4_2020}. Each entry contains a device ID, a location ID, UTC date and hour, and a dwell time, which tell us when and how long a person visited a location. Given this data, we generated a contact graph of Austin.
 
-We used data only from July 1st, 2020 to generate a sample network. Our nodes were all the unique device IDs in the dataset, which correspond to people. For our edges, we used the following logic: we ignored entries with a dwell time less than 60 minutes, as we assumed this not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine the arrival and departure time interval for each entry. We then compared every entry with every other entry. If the entries' locations were the same and if intervals overlapped by at least 60 minutes, we considered this as a contact between the two people and added an edge between them. Figure \ref{fig:toy_label} shows an example of a sample contact network generation. 
+% We used data only from July 1st, 2020 to generate a sample network. Our nodes were all the unique device IDs in the dataset, which correspond to people. For our edges, we used the following logic: we ignored entries with a dwell time less than 60 minutes, as we assumed this not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine the arrival and departure time interval for each entry. We then compared every entry with every other entry. If the entries' locations were the same and if intervals overlapped by at least 60 minutes, we considered this as a contact between the two people and added an edge between them. Figure \ref{fig:toy_label} shows an example of a sample contact network generation. 
+
+Firstly, we used data from July 1st, 2020 to July 5th, 2020 to create a sample contact network. Our nodes were all the unique device IDs in the dataset, which correspond to people. For our edges, we used the following logic: we ignored entries with a dwell time less than 60 minutes, as we assumed this not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine the arrival and departure time interval for each entry. We then compared every entry with every other entry. If the entries' locations were the same and if intervals overlapped by at least 60 minutes, we considered this as a contact between the two people and added an edge between them. We will call this the 5-Day Contact Network. Figure \ref{fig:toy_label} shows an example of a sample contact network generation. 
 
 \begin{figure}
     \centering
@@ -146,9 +148,28 @@ We used data only from July 1st, 2020 to generate a sample network. Our nodes we
     \label{fig:toy_label}
 \end{figure}
 
+Then we also created a set of 62 contact networks, one for each day from July 1st, 2020 to August 31st, 2020. We used the same logic as before to create these individual contact networks. We will call this set of networks the Temporal Contact Networks. The Temporal Contact Networks allow us to analyze the contact network over time, at daily increments. Particularly, we analyzed how the following metrics change over time:
+\begin{itemize}
+    \item Clustering Coefficient
+    \item Average Node Degree
+\end{itemize}
+
+We also created a Susceptible-Infected-Recovered simulation using the Temporal Contact Networks. We ran the simulation from July 1st, 2020 to August 31st, 2020. Here are the parameters and assumptions that were made for the simulation:
+\begin{itemize}
+    \item Contact between people that is less than 60 minutes is not considered significant enough to spread the virus.
+    \item If a susceptible person came into contact with an infected person for at least one hour, then they get infected with a probability of 0.30. This is called the infection rate (IR).
+    \item The IR is constant throughout the simulation.
+    \item An infected person will recover after seven days. This is called the recovery period (RP).
+    \item The RP is constant throughout the simulation.
+    \item A person can only be infected if they were previously susceptible, and a person can only be recovered if they were previously infected.
+    \item Initially, 20\% of the people, chosen at random, are infected. The rest are susceptible.
+\end{itemize}
+
+\subsection{Machine Learning}
+
 % there was an overlap of at least 60 minutes in their dwelling times, we considered this as a contact between the two people. We then added an edge between the two people in our graph.
 
-Separately, we also created a sample Susceptible-Infected (SI) simulation using data from July 1st, 2020. We did not include a recovery/death or incubation period in this model mainly because we only performed the simulation over one day. For the simulation, we did the following: at hour 0, we randomly infected 20\% of the nodes in the graph. Then we looked at all contacts between people for hour 1, and if an infected person came into contact with a susceptible person, we created an edge between them and infected the susceptible person with a probability of 1. We repeated the previous step for the remaining 22 hours of the day.
+% Separately, we also created a sample Susceptible-Infected (SI) simulation using data from July 1st, 2020. We did not include a recovery/death or incubation period in this model mainly because we only performed the simulation over one day. For the simulation, we did the following: at hour 0, we randomly infected 20\% of the nodes in the graph. Then we looked at all contacts between people for hour 1, and if an infected person came into contact with a susceptible person, we created an edge between them and infected the susceptible person with a probability of 1. We repeated the previous step for the remaining 22 hours of the day.
 
 After generating and analyzing the contact network for one day and performing the SI simulation, we moved towards leveraging graph learning techniques to perfom link prediction, which is the fundamental task behind automating contact tracing. For this milestone, we focused on performing link prediction on a static graph. In order to have enough data to train and evaluate our model(s), we generated a contact network for the first five days of July. We used the same technique described in building our July 1st contact network to build the 5 day contact network; so the nodes are people who have a dwell time of at least 60 minutes at one location, and edges represent people who have come into contact with each other in the 5 day period. 
 

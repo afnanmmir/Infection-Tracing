@@ -88,16 +88,18 @@ def init_population(m, networks):
     for node in nodes:
         not_vaccinated_people.append(node)
     
-    m = int(len(not_vaccinated_people) * m)
+    # m = int(len(not_vaccinated_people) * m)
 
     # set all nodes to be susceptible
     for network in networks:
         nodes = network.nodes()
         for node in nodes:
             node_data[node] = ['S', 0]
+    # print("Total Nodes: ", len(node_data))
+    m = int(len(node_data) * m)
 
     # get 5 randomly chosen nodes
-    nodes_random = random.sample(not_vaccinated_people, m)
+    nodes_random = random.sample(list(node_data.keys()), m)
     # infect those nodes
     for node in nodes_random:
         # set node data 
