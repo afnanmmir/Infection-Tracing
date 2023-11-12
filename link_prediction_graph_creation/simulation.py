@@ -39,6 +39,8 @@ infection_data_random = []
 suscipetible_data_random = []
 recovered_data_random = []
 
+total_infected = set()
+
 #########################################
 #         Utility Functions
 #########################################
@@ -100,6 +102,8 @@ def init_population(m, networks):
     for node in nodes_random:
         # set node data 
         node_data[node] = ['I', DELTA_RECOVER]
+        # add to total infected
+        total_infected.add(node)
 
 ###########################################
 #              SIR Simulation  
@@ -132,6 +136,7 @@ def run_experiment(days,networks):
                     chance = random.random()
                     if chance <= p_transmit_virus:
                         node_data[neighbor] = ['I', DELTA_RECOVER + day]
+                        total_infected.add(neighbor)
 
         #infected to recovered 
         #Transition infected people to recovered after DELTA_RECOVER days.
@@ -190,6 +195,9 @@ def main():
     init_population(m, networks)
 
     run_experiment(days, networks)
+
+    print("Total Infected: ", len(total_infected))
+    print("Max Infected on a single day: ", max(infection_data_random))
 
     #plot all infections vs time 
     plot_SIR()
