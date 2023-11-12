@@ -82,11 +82,11 @@ def init_population(m, networks):
     global node_data
     node_data = dict()
 
-    nodes = networks[0].nodes()
-    not_vaccinated_people = []
-    # randomly vaccinate 20% of the population
-    for node in nodes:
-        not_vaccinated_people.append(node)
+    # nodes = networks[0].nodes()
+    # not_vaccinated_people = []
+    # # randomly vaccinate 20% of the population
+    # for node in nodes:
+    #     not_vaccinated_people.append(node)
     
     # m = int(len(not_vaccinated_people) * m)
 
@@ -96,10 +96,10 @@ def init_population(m, networks):
         for node in nodes:
             node_data[node] = ['S', 0]
     # print("Total Nodes: ", len(node_data))
-    m = int(len(node_data) * m)
+    init_infection_size = int(len(node_data) * m)
 
     # get 5 randomly chosen nodes
-    nodes_random = random.sample(list(node_data.keys()), m)
+    nodes_random = random.sample(list(node_data.keys()), init_infection_size)
     # infect those nodes
     for node in nodes_random:
         # set node data 
@@ -115,7 +115,7 @@ def run_experiment(days,networks):
     
     for day in range(days):
         G = networks[day]
-        
+
         #susceptible to infected
         # if day == time_to_recover, then recover the person
         infected = list()
@@ -142,6 +142,7 @@ def run_experiment(days,networks):
 
         #infected to recovered 
         #Transition infected people to recovered after DELTA_RECOVER days.
+
         for node in node_data:
             if node_data[node][0] == 'I':
                 if node_data[node][1] == day:

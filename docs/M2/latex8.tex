@@ -139,7 +139,7 @@ We used the foursquare dataset to build a contact graph of Austin, TX \cite{DVN/
 
 % We used data only from July 1st, 2020 to generate a sample network. Our nodes were all the unique device IDs in the dataset, which correspond to people. For our edges, we used the following logic: we ignored entries with a dwell time less than 60 minutes, as we assumed this not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine the arrival and departure time interval for each entry. We then compared every entry with every other entry. If the entries' locations were the same and if intervals overlapped by at least 60 minutes, we considered this as a contact between the two people and added an edge between them. Figure \ref{fig:toy_label} shows an example of a sample contact network generation. 
 
-Firstly, we used data from July 1st, 2020 to July 5th, 2020 to create a sample contact network. Our nodes were all the unique device IDs in the dataset, which correspond to people. For our edges, we used the following logic: we ignored entries with a dwell time less than 60 minutes, as we assumed this not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine the arrival and departure time interval for each entry. We then compared every entry with every other entry. If the entries' locations were the same and if intervals overlapped by at least 60 minutes, we considered this as a contact between the two people and added an edge between them. We will call this the 5-Day Contact Network. Figure \ref{fig:toy_label} shows an example of a sample contact network generation. 
+Firstly, we used data from July 1st, 2020 to July 5th, 2020 to create a sample contact network. Our nodes were all the unique device IDs in the dataset, which correspond to people. For our edges, we used the following logic: we ignored entries with a dwell time less than 60 minutes, as we assumed this not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine the arrival and departure time interval for each entry. We then compared every entry with every other entry. If the entries' locations were the same and if intervals overlapped by at least 60 minutes, we considered this as a contact between the two people and added an edge between them. We will call this the 5-Day Contact Network. This network captures the meaningful contacts that occurred from July 1st, 2020 to July 5th, 2020. Figure \ref{fig:toy_label} shows an example of a sample contact network generation. 
 
 \begin{figure}
     \centering
@@ -148,7 +148,7 @@ Firstly, we used data from July 1st, 2020 to July 5th, 2020 to create a sample c
     \label{fig:toy_label}
 \end{figure}
 
-Then we also created a set of 62 contact networks, one for each day from July 1st, 2020 to August 31st, 2020. We used the same logic as before to create these individual contact networks. We will call this set of networks the Temporal Contact Networks. The Temporal Contact Networks allow us to analyze the contact network over time, at daily increments. Particularly, we analyzed how the following metrics change over time:
+Then we also created a set of 62 contact networks, one for each day from July 1st, 2020 to August 31st, 2020. We used the same logic as before to create these individual contact networks. We will call this set of networks the Temporal Contact Networks. Each day's network captures the meaningful contacts that occurred for that day. The Temporal Contact Networks allow us to analyze the contact network over time at daily increments. Particularly, we analyzed how the following metrics change over time:
 \begin{itemize}
     \item Clustering Coefficient
     \item Average Node Degree
@@ -163,6 +163,7 @@ We also created a Susceptible-Infected-Recovered simulation using the Temporal C
     \item The RP is constant throughout the simulation.
     \item A person can only be infected if they were previously susceptible, and a person can only be recovered if they were previously infected.
     \item Initially, 20\% of the people, chosen at random, are infected. The rest are susceptible.
+    \item Only infected people can infect others.
 \end{itemize}
 
 \subsection{Machine Learning}
@@ -171,25 +172,43 @@ We also created a Susceptible-Infected-Recovered simulation using the Temporal C
 
 % Separately, we also created a sample Susceptible-Infected (SI) simulation using data from July 1st, 2020. We did not include a recovery/death or incubation period in this model mainly because we only performed the simulation over one day. For the simulation, we did the following: at hour 0, we randomly infected 20\% of the nodes in the graph. Then we looked at all contacts between people for hour 1, and if an infected person came into contact with a susceptible person, we created an edge between them and infected the susceptible person with a probability of 1. We repeated the previous step for the remaining 22 hours of the day.
 
-After generating and analyzing the contact network for one day and performing the SIR simulation, we moved towards leveraging graph learning techniques to perfom link prediction, which is the fundamental task behind automating contact tracing. For this milestone, we focused on performing link prediction on a static graph. In order to have enough data to train and evaluate our model(s), we generated a contact network for the first five days of July. We used the same technique described in building our July 1st contact network to build the 5 day contact network; so the nodes are people who have a dwell time of at least 60 minutes at one location, and edges represent people who have come into contact with each other in the 5 day period. 
+After generating and analyzing the 5-Day Contact Network, Temporal Contact Networks, and performing the SIR simulation, we moved towards leveraging graph learning techniques to perfom link prediction, which is the fundamental task behind automating contact tracing. For this milestone, we focused on performing link prediction on a static graph. In order to have enough data to train and evaluate our model(s), we generated a contact network for the first five days of July. We used the same technique described in building our July 1st contact network to build the 5 day contact network; so the nodes are people who have a dwell time of at least 60 minutes at one location, and edges represent people who have come into contact with each other in the 5 day period. 
 
-Our first goal was to create a baseline link prediction model. We used the node2vec algorithm to generate node embeddings for each node in the graph \cite{grover2016node2vec}. We then had to generate our dataset of edges. In order to perform link prediction, we need the set of positive edges, which are all the edges present in the network, and we need aset of negative edges. This allows us to boil down the link prediction to a binary classification problem. Given our network, we created a set of negative edges that was equal in size to the set of positive edges to ensure balanced training. Using the node2vec embeddings and the set of positive and negative edges, we trained a GraphSAGE model to perform link prediction on the static 5 day graph \cite{hamilton2018inductive}.
+Our first goal was to create a baseline link prediction model. We used the node2vec algorithm to generate node embeddings for each node in the graph \cite{grover2016node2vec}. We then had to generate our dataset of edges. In order to perform link prediction, we need the set of positive edges, which are the edges present in the network, and we need a set of negative edges, which are the edges not present the network. This allows us to boil down the link prediction to a binary classification problem. Given our network, we created a set of negative edges that was equal in size to the set of positive edges to ensure balanced training. Using the node2vec embeddings and the set of positive and negative edges, we trained a GraphSAGE model to perform link prediction on the static 5 day graph \cite{hamilton2018inductive}.
 
-After creating the baseline model, we searched for ways to improve the model's performance on the graph. This would include performing feature engineering techniques to add dimensions to our node embeddings and exploring the use of other GNN architectures such as GCN and/or GAT \cite{kipf2017semisupervised}\cite{veličković2018graph}. We hoped to be able to finetune the model and improve its performance to the point we could use it to perform link prediction on the dynamic contact network. 
+After creating the baseline model, we searched for ways to improve the model's performance on the graph. This would include performing feature engineering techniques to add dimensions to our node embeddings and exploring the use of other GNN architectures such as GCN and/or GAT \cite{kipf2017semisupervised} \cite{veličković2018graph}. We hoped to be able to finetune the model and improve its performance to the point we could use it to perform link prediction on the Temporal Contact Networks. 
+
+Here are the additional featues the generated for every node (person) in the graph:
+\begin{itemize}
+    \item Average location travelled to per day
+    \item Average distance travelled per day
+    \item Gender
+    \item SAG Score
+    \item Age
+\end{itemize}
 % Then for each hour from 1 to 23, we looked at all contacts between people, and if an infected person came into contact with a susceptible person, we infected the susceptible person with a probability of 1.0. We did this for 24 hours.
 
 % Next, with each time step (1 hour), we looked at all the neighbors of each infected node and infected them with a probability of 1.0, so we assumed any contact led to an infection. We did this for 24 hours.
 
 
 \Section{Experimental Setup and Results}
-In Figure \ref{fig:my_label}, we can see the contact network after one day.
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.23\textwidth]{imgs/one_day_net.png}
+%     \caption{Contact network after one day}
+%     \label{fig:my_label}
+% \end{figure}
+
 \begin{figure}
     \centering
-    \includegraphics[width=0.23\textwidth]{imgs/one_day_net.png}
-    \caption{Contact network after one day}
+    \includegraphics[width=0.23\textwidth]{imgs/5_day_network.png.png}
+    \caption{5-Day Contact Network from July 1st, 2020 to July 5th, 2020}
     \label{fig:my_label}
 \end{figure}
-Network properties for this network were also calculated. The average node degree is 10.41, the network diameter is 14, the average clustering coefficient is 0.687, and the average path length is 4.784. In addition to this, the degree distribution was mainly an exponential distribution with subtle hints at a power-law. This can also be seen from the network itself, as we can see the presence of a few hubs in the network. This makes sense, as we should expect a social network to be scale-free, but we do not have all the data points, so it is not fully scale-free on the sample network.
+
+In Figure \ref{fig:my_label}, we can see the 5-Day Contact Network.
+Network properties for this network were also calculated. The average node degree is 4.278, the network diameter is 20, the average clustering coefficient is 0.432, and the average path length is 6.95. In addition to this, the degree distribution was mainly an exponential distribution with subtle hints at a power-law. This can also be seen from the network itself, as we can see the presence of a few hubs in the network. This makes sense, as we should expect a social network to be scale-free, but we do not have all the data points, so it is not fully scale-free on the sample network.
 
 In addition, we can see the resulting infected graph from our simulation in Figure \ref{fig:my_label2}.
 \begin{figure}
