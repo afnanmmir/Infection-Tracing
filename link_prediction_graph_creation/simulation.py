@@ -201,6 +201,7 @@ def main():
 
     print("Total Infected: ", len(total_infected))
     print("Max Infected on a single day: ", max(infection_data_random))
+    print("Total People: ", len(node_data))
 
     #plot all infections vs time 
     plot_SIR()

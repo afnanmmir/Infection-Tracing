@@ -176,6 +176,15 @@ After generating and analyzing the 5-Day Contact Network, Temporal Contact Netwo
 
 Our first goal was to create a baseline link prediction model. We used the node2vec algorithm to generate node embeddings for each node in the graph \cite{grover2016node2vec}. We then had to generate our dataset of edges. In order to perform link prediction, we need the set of positive edges, which are the edges present in the network, and we need a set of negative edges, which are the edges not present the network. This allows us to boil down the link prediction to a binary classification problem. Given our network, we created a set of negative edges that was equal in size to the set of positive edges to ensure balanced training. Using the node2vec embeddings and the set of positive and negative edges, we trained a GraphSAGE model to perform link prediction on the static 5 day graph \cite{hamilton2018inductive}.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.30\textwidth]{imgs/static_prediction_data_split.png}
+    \caption{Example of positive and negative edges for train and test data}
+    \label{fig:toy_edges_label}
+\end{figure}
+
+A sample example of training and testing data is shown in Figure \ref{fig:toy_edges_label}. The black lines representing training data and red lines represent testing data. The solid lines represent positive edges and dotted lines represent negative edges. The training data is used to train the model, and the testing data is used to evaluate the model.
+
 After creating the baseline model, we searched for ways to improve the model's performance on the graph. This would include performing feature engineering techniques to add dimensions to our node embeddings and exploring the use of other GNN architectures such as GCN and/or GAT \cite{kipf2017semisupervised} \cite{veličković2018graph}. We hoped to be able to finetune the model and improve its performance to the point we could use it to perform link prediction on the Temporal Contact Networks. 
 
 Here are the additional featues the generated for every node (person) in the graph:
@@ -202,7 +211,7 @@ Here are the additional featues the generated for every node (person) in the gra
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.23\textwidth]{imgs/5_day_network.png.png}
+    \includegraphics[width=0.23\textwidth]{imgs/5_day_network.png}
     \caption{5-Day Contact Network from July 1st, 2020 to July 5th, 2020}
     \label{fig:my_label}
 \end{figure}
@@ -210,22 +219,43 @@ Here are the additional featues the generated for every node (person) in the gra
 In Figure \ref{fig:my_label}, we can see the 5-Day Contact Network.
 Network properties for this network were also calculated. The average node degree is 4.278, the network diameter is 20, the average clustering coefficient is 0.432, and the average path length is 6.95. In addition to this, the degree distribution was mainly an exponential distribution with subtle hints at a power-law. This can also be seen from the network itself, as we can see the presence of a few hubs in the network. This makes sense, as we should expect a social network to be scale-free, but we do not have all the data points, so it is not fully scale-free on the sample network.
 
-In addition, we can see the resulting infected graph from our simulation in Figure \ref{fig:my_label2}.
-\begin{figure}
-    \centering
-    \includegraphics[width=0.23\textwidth]{imgs/simulation.png}
-    \caption{Infected graph after one day}
-    \label{fig:my_label2}
-\end{figure}
-In this network, it is important to note that all of the visible nodes are infected, and the edges represent how the infection has been spread. We can see that not a lot of infected nodes have spread the virus, but the ones that have created one connected component that show the beginnings of a scale-free network. 
 
-In Figure \ref{fig:my_label3}, we can see the number of infected nodes over time. We can see that the infection doesn't spread much until the latter half of the day, after which it spreads steadily. We expect the rate of spread to be exponential when we simulate the spread over more days. This lines up with our intuition, as we would expect the infection to spread faster as more people get infected.
 \begin{figure}
     \centering
-    \includegraphics[width=0.28\textwidth]{imgs/infected_over_time.png}
-    \caption{Number of infected nodes over 24 hours}
-    \label{fig:my_label3}
+    \includegraphics[width=0.3\textwidth]{imgs/complete_simulation.png}
+    \caption{SIR Simulation Results}
+    \label{fig:simulation_results}
 \end{figure}
+
+In addition, the simulation results are shown in Figure \ref{fig:simulation_results}. The simulation results show that the number of infected people initially increases, but then decreases significant and approached 0. Whereas the number of recovered people exhibit the opposite behavior. This makes sense since the infected people recover after seven days can no longer become susptible again. Also, the number of susceptible people decreases over time, which makes sense since they are getting infected and recovering. The maximum number of infected people on any given day is about 11,500 and the total number of people infected over the simulation is about 14,300.
+
+It is important to node that this simulation was run on limited data. The total number of nodes in the simulation, which is the total number of people, is around 45,000, whereas the actual population in Austin, TX in 2020 was around 2 million. Furthermore, this model assumes a closed population, which is not the case in Austin, TX. People are constantly moving in and out of Austin, TX. Thus, the simulation results are not representative of the actual spread of the virus in Austin, TX.  However, this simulation does show that the virus can spread quickly, as seen in the first week of the simulation. Thus, it is important to have an efficient and accurate contact tracing system to mitigate the spread of the virus.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.3\textwidth]{imgs/temporal_network_analysis.png}
+    \caption{Clustering Coefficient and Average Node Degree for Temporal Contact Networks} 
+    \label{fig:temporal_stats}
+\end{figure}
+
+In addition, the analysis of Clustering Coefficient and Average Node Degree for the Temporal Contact Networks are shown in Figure \ref{fig:temporal_stats}. The results demonstrate a periodic pattern. It is evident that the period is 7 days, and the peaks occur on the weekends. These results makes sense since people are more likely to go out and socialize on the weekends. This increase in socialization on the weekends leads to more contacts, which leads to a higher clustering coefficient and average node degree.
+
+% In addition, we can see the resulting infected graph from our simulation in Figure \ref{fig:my_label2}.
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.23\textwidth]{imgs/simulation.png}
+%     \caption{Infected graph after one day}
+%     \label{fig:my_label2}
+% \end{figure}
+% In this network, it is important to note that all of the visible nodes are infected, and the edges represent how the infection has been spread. We can see that not a lot of infected nodes have spread the virus, but the ones that have created one connected component that show the beginnings of a scale-free network. 
+
+% In Figure \ref{fig:my_label3}, we can see the number of infected nodes over time. We can see that the infection doesn't spread much until the latter half of the day, after which it spreads steadily. We expect the rate of spread to be exponential when we simulate the spread over more days. This lines up with our intuition, as we would expect the infection to spread faster as more people get infected.
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.28\textwidth]{imgs/infected_over_time.png}
+%     \caption{Number of infected nodes over 24 hours}
+%     \label{fig:my_label3}
+% \end{figure}
 
 
 \Section{Conclusion and Short-Term Plans}
