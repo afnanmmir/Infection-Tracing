@@ -27,6 +27,10 @@ A.~Grover and J.~Leskovec.
 W.~L. Hamilton, R.~Ying, and J.~Leskovec.
 \newblock Inductive representation learning on large graphs, 2018.
 
+\bibitem{kingma2017adam}
+D.~P. Kingma and J.~Ba.
+\newblock Adam: A method for stochastic optimization, 2017.
+
 \bibitem{kipf2017semisupervised}
 T.~N. Kipf and M.~Welling.
 \newblock Semi-supervised classification with graph convolutional networks,
