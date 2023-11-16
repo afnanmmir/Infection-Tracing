@@ -2,22 +2,15 @@
 
 \bibitem{SIRD-LSTM-hybrid}
 A.~Bousquet, W.~H. Conrad, S.~O. Sadat, N.~Vardanyan, and Y.~Hong.
-\newblock Deep learning forecasting using time-varying parameters of the sird
-  model for covid-19, February 22 2022.
+\newblock Deep learning forecasting using time-varying parameters of the sird model for covid-19, February 22 2022.
 
 \bibitem{flaxman2020estimating}
-S.~Flaxman, S.~Mishra, A.~Gandy, H.~J.~T. Unwin, T.~A. Mellan, H.~Coupland, and
-  et~al.
-\newblock Estimating the number of infections and the impact of
-  non-pharmaceutical interventions on covid-19 in european countries: technical
-  description update, 2020.
+S.~Flaxman, S.~Mishra, A.~Gandy, H.~J.~T. Unwin, T.~A. Mellan, H.~Coupland, and et~al.
+\newblock Estimating the number of infections and the impact of non-pharmaceutical interventions on covid-19 in european countries: technical description update, 2020.
 
 \bibitem{SEIRD-LSTM}
-T.~Geroski, A.~Blagojevic, D.~M. Cvetković, A.~M. Cvetković, I.~Lorencin,
-  S.~B. Šegota, D.~Milovanovic, D.~Baskic, Z.~Car, and N.~Filipovic.
-\newblock Epidemiological predictive modeling of covid-19 infection:
-  Development, testing, and implementation on the population of the benelux
-  union, October 28 2021.
+T.~Geroski, A.~Blagojevic, D.~M. Cvetković, A.~M. Cvetković, I.~Lorencin, S.~B. Šegota, D.~Milovanovic, D.~Baskic, Z.~Car, and N.~Filipovic.
+\newblock Epidemiological predictive modeling of covid-19 infection: Development, testing, and implementation on the population of the benelux union, October 28 2021.
 
 \bibitem{grover2016node2vec}
 A.~Grover and J.~Leskovec.
@@ -33,8 +26,7 @@ D.~P. Kingma and J.~Ba.
 
 \bibitem{kipf2017semisupervised}
 T.~N. Kipf and M.~Welling.
-\newblock Semi-supervised classification with graph convolutional networks,
-  2017.
+\newblock Semi-supervised classification with graph convolutional networks, 2017.
 
 \bibitem{DVN/PFLAH4_2020}
 C.~D. Lab.
@@ -42,13 +34,11 @@ C.~D. Lab.
 
 \bibitem{positivity-hospitalization-GNN}
 K.~Skianis, G.~Nikolentzos, B.~Gallix, R.~Thiebaut, and G.~Exarchakis.
-\newblock Predicting covid-19 positivity and hospitalization with multi-scale
-  graph neural networks, March 31 2023.
+\newblock Predicting covid-19 positivity and hospitalization with multi-scale graph neural networks, March 31 2023.
 
 \bibitem{contact-tracing-GNN}
 C.~W. Tan, P.-D. Yu, S.~Chen, and H.~V. Poor.
-\newblock Deeptrace: Learning to optimize contact tracing in epidemic networks
-  with graph neural networks, 2023.
+\newblock Deeptrace: Learning to optimize contact tracing in epidemic networks with graph neural networks, 2023.
 
 \bibitem{veličković2018graph}
 P.~Veličković, G.~Cucurull, A.~Casanova, A.~Romero, P.~Liò, and Y.~Bengio.
@@ -56,7 +46,6 @@ P.~Veličković, G.~Cucurull, A.~Casanova, A.~Romero, P.~Liò, and Y.~Bengio.
 
 \bibitem{SIR}
 R.~S. Yadav.
-\newblock Mathematical modeling and simulation of sir model for covid-2019
-  epidemic outbreak: A case study of india, May 21 2020.
+\newblock Mathematical modeling and simulation of sir model for covid-2019 epidemic outbreak: A case study of india, May 21 2020.
 
 \end{thebibliography}
