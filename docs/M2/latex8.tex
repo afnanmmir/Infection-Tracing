@@ -86,7 +86,9 @@ Mathematical models, classical machine learning models, and graph-based machine 
 
 The SEIRD model is a mathematical model that predicts the change in Susceptible, Exposed, Infected, Recovered, and Deceased people over time by using differential equations. \cite{SEIRD-LSTM}. The Susceptible-Infected-Recovered (SIR) model is a simpler version of the SEIRD model \cite{SIR}.
 
-The LSTM is an ML model that has been used to predict the number of cases over time \cite{SEIRD-LSTM}. A hybrid of SIRD and LSTM helps account for time-dependent parameters of the SIRD model \cite{SIRD-LSTM-hybrid}. Also, GNNs, which are graph-based ML models, have been used on mobility data to predict virus spread and for link prediction for contact tracing \cite{positivity-hospitalization-GNN}\cite{contact-tracing-GNN}.
+The Long Short Term Memory model is a machine learning model that has been used to predict the number of cases over time \cite{SEIRD-LSTM}. A hybrid of SIRD and LSTM helps account for time-dependent parameters of the SIRD model \cite{SIRD-LSTM-hybrid}. Also, GNNs, which are graph-based ML models, have been used on mobility data to predict virus spread and for link prediction for contact tracing \cite{positivity-hospitalization-GNN}\cite{contact-tracing-GNN}.
+
+We hope to build off of these previous works by utilizing GNNs and other deep learning techniques to be able to predict contacts between individuals. This is a non-trivial and novel task, as it requires the model to potentially learn a graph's structure based on the graph's structure at previous time steps as well as features of nodes within the graph.
 % The LSTM is a ML model that has also been used to predict the number of cases over time \cite{SEIRD-LSTM}. Another approach uses a hybrid of SIRD and LSTM to account for time dependent parameters of the SIRD model \cite{SIRD-LSTM-hybrid}.
 % Other approaches include the Long Short-Term Memory (LSTM) model \cite{SEIRD-LSTM} and a hybrid of SIRD and LSTM \cite{SIRD-LSTM-hybrid}.
 
@@ -140,7 +142,7 @@ The LSTM is an ML model that has been used to predict the number of cases over t
 \subsection{Network Generation and Simulation}
 % We used the foursquare dataset to build a contact graph of Austin, Texas \cite{DVN/PFLAH4_2020}. Each entry contains data such as a device ID, a location ID, UTC date and hour, and a dwell time, which all tell us when a person visited a location and for how much time. Given this data, we generated a contact graph for people in Austin.
 
-We used the foursquare dataset for July and August 2020 to build contact networks of Austin, TX \cite{DVN/PFLAH4_2020}. Each entry contains a device ID, a location ID, a UTC date and hour, and a dwell time, which tell us when and how long a person visited a location. Given this data, we generated a contact graph of Austin.
+We used the Foursquare dataset from the months of July and August 2020 to build contact networks of Austin, TX \cite{DVN/PFLAH4_2020}. Each entry contains a device ID, a location ID, a UTC date and hour, and a dwell time, which tell us when and how long a person visited a location. Given this data, we generated a contact graph of Austin.
 
 % We used data only from July 1st, 2020 to generate a sample network. Our nodes were all the unique device IDs in the dataset, which correspond to people. For our edges, we used the following logic: we ignored entries with a dwell time less than 60 minutes, as we assumed this not enough time to make significant contact with others. Then, we used the UTC date and hour with the dwell time to determine the arrival and departure time interval for each entry. We then compared every entry with every other entry. If the entries' locations were the same and if intervals overlapped by at least 60 minutes, we considered this as a contact between the two people and added an edge between them. Figure \ref{fig:toy_label} shows an example of a sample contact network generation. 
 
@@ -153,11 +155,11 @@ Firstly, we used data from July 1st, 2020 to July 5th, 2020 to create a sample c
     \label{fig:toy_label}
 \end{figure}
 
-Then we also created a set of 62 contact networks, one for each day from July 1st, 2020 to August 31st, 2020. We used the same logic as before to create these individual contact networks. If two people we at the same location at the same time for at least one hour, we created an edge between them. We will call this set of networks the Temporal Contact Networks. Each day's network captures the meaningful contacts that occurred between people for that day. Furthermore, we analyzed how the clustering coefficient and average node degree changed over time by calculating these metrics for each network in the Temporal Contact Networks.
+Then we also created a set of 62 contact networks, one for each day from July 1st, 2020 to August 31st, 2020. We used the same logic as before to create these individual contact networks. If two people were at the same location at the same time for at least 60 minutes, we created an edge between them. We will call this set of networks the Temporal Contact Networks. Each day's network captures the meaningful contacts that occurred between people for that day. Furthermore, we analyzed how the clustering coefficient and average node degree changed over time by calculating these metrics for each network in the Temporal Contact Networks.
 
 Furthermore, we created an SIR simulation using the Temporal Contact Networks, which we ran from July 1st, 2020 to August 31st, 2020. Here are the parameters and assumptions that were made for the simulation:
 \begin{itemize}[itemsep=0pt]
-    \item Contact between people that is less than 60 minutes is not considered significant enough to spread the virus.
+    \item Contact between people that is less than 15 minutes is not considered significant enough to spread the virus.
     \item If a susceptible person comes into contact with an infected person for at least one hour, then they get infected with a probability of 0.30. This is called the infection rate (IR) and it is constant.
     \item An infected person will recover after seven days. This is called the recovery period (RP) and it is constant.
     \item A person can only be infected if they were previously susceptible, and a person can only be recovered if they were previously infected.
@@ -209,9 +211,9 @@ Our first goal was to create a baseline link prediction model. We used the node2
     \label{fig:toy_edges_label}
 \end{figure}
 
-A sample example of training and testing data is shown in Figure \ref{fig:toy_edges_label}. The black lines represent training data and the red lines represent testing data. The solid lines represent positive edges and dotted lines represent negative edges. The model is trained on the black lines, and attempts to predict the red lines. Essentially, the training data is used to train the model, and the testing data is used to evaluate the model.
+A sample example of training and testing data is shown in Figure \ref{fig:toy_edges_label}. The black lines represent training data and the red lines represent testing data. The solid lines represent positive edges and dotted lines represent negative edges. The model is trained on the black lines, and attempts to predict the red lines. This allows us to boil down the link prediction to a binary classification problem.
 
-After creating the baseline model, we searched for ways to improve the model's performance on the graph. This would include performing feature engineering techniques to add dimensions to our node embeddings and exploring the use of other GNN architectures such as the Graph Convolutional Network (GCN) and/or the Graph Attention Network (GAT) \cite{kipf2017semisupervised} \cite{veličković2018graph}. We hoped to be able to finetune the model and improve its performance to the point we could use it to perform link prediction on the Temporal Contact Networks. This approach is scalable because generating the training and testing edge sample, node embeddings, and node features can be done on a network of any size.
+After creating the baseline model, we searched for ways to improve the model's performance on the graph. This would include performing feature engineering techniques to add dimensions to our node embeddings and exploring the use of other GNN architectures such as the Graph Convolutional Network (GCN) and/or the Graph Attention Network (GAT) \cite{kipf2017semisupervised} \cite{veličković2018graph}. We hoped to be able to finetune the model and improve its performance to the point we could use it to perform link prediction on the Temporal Contact Networks. This approach is scalable because generating the training and testing edge sample, node embeddings, and node features can be done on a network of any size; however, generating the node2vec embeddings for a large network can be computationally expensive.
 
 % Then for each hour from 1 to 23, we looked at all contacts between people, and if an infected person came into contact with a susceptible person, we infected the susceptible person with a probability of 1.0. We did this for 24 hours.
 
@@ -270,14 +272,7 @@ We also analyzed the Temporal Contact Networks. The clustering coefficient and t
 
 After performing the analysis on the 5-Day Contact Network and Temporal Contact Networks, we moved towards performing link prediction on the 5-Day Contact Network. For our baseline model, as stated in the approach, we used a GraphSAGE model with node2vec embeddings. We trained the model for 1000 epochs on a 90/10 train/test split with the Adam optimizer \cite{kingma2017adam}. The model achieved an AUC score of 0.49 on the test data, which is worse than random guessing. Part of this could be because no internal node features were used in the node embeddings.
 
-To improve upon this, we performed feature engineering to generate additional features for each node. Here are the additional features that we generated for every node (person) in the graph:
-\begin{itemize}[itemsep=0pt]
-    \item Average number of locations traveled to per day
-    \item Average distance traveled per day
-    \item Age and Gender
-    \item SAG Score
-\end{itemize}
-By adding these features to the node2vec embeddings, we were able to improve the AUC score to 0.63, which is a significant improvement over the baseline model. We can see that the additional features helped the model learn the graph structure better. 
+To improve upon this, we performed feature engineering to generate additional features for each node. The features we added included average number of locations traveled to per day, average distance traveled per day, age, gender, and State-Age-Gender (SAG) score. By adding these features to the node2vec embeddings, we were able to improve the AUC score to 0.63, which is a significant improvement over the baseline model. We can see that the additional features helped the model learn the graph structure better. 
 
 % We then attempted to improve upon this by taking the features we generated and normalizing them before appending them. We saw that the features were all of different scales compared to each other and the node2vec embeddings, so we hypothesized that normalizing the features would improve the model's performance. This, again, improved our model's performance, as we were able to achieve an AUC score of 0.75.
 
