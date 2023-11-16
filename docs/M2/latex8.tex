@@ -88,7 +88,7 @@ The SEIRD model is a mathematical model that predicts the change in Susceptible,
 
 The Long Short Term Memory model is a machine learning model that has been used to predict the number of cases over time \cite{SEIRD-LSTM}. A hybrid of SIRD and LSTM helps account for time-dependent parameters of the SIRD model \cite{SIRD-LSTM-hybrid}. Also, GNNs, which are graph-based ML models, have been used on mobility data to predict virus spread and for link prediction for contact tracing \cite{positivity-hospitalization-GNN}\cite{contact-tracing-GNN}.
 
-We hope to build off of these previous works by utilizing GNNs and other deep learning techniques to be able to predict contacts between individuals. This is a non-trivial and novel task, as it requires the model to potentially learn a graph's structure based on the graph's structure at previous time steps as well as features of nodes within the graph.
+We hope to build off of these previous works by utilizing GNNs and other deep learning techniques to be able to predict contacts between individuals. This is a non-trivial and novel task, as it requires the model to potentially learn a graph's structure based on its structure at previous time steps as well as node features.
 % The LSTM is a ML model that has also been used to predict the number of cases over time \cite{SEIRD-LSTM}. Another approach uses a hybrid of SIRD and LSTM to account for time dependent parameters of the SIRD model \cite{SIRD-LSTM-hybrid}.
 % Other approaches include the Long Short-Term Memory (LSTM) model \cite{SEIRD-LSTM} and a hybrid of SIRD and LSTM \cite{SIRD-LSTM-hybrid}.
 
@@ -159,7 +159,7 @@ Then we also created a set of 62 contact networks, one for each day from July 1s
 
 Furthermore, we created an SIR simulation using the Temporal Contact Networks, which we ran from July 1st, 2020 to August 31st, 2020. Here are the parameters and assumptions that were made for the simulation:
 \begin{itemize}[itemsep=0pt]
-    \item Contact between people that is less than 15 minutes is not considered significant enough to spread the virus.
+    \item Contact between people that is less than 60 minutes is not considered significant enough to spread the virus.
     \item If a susceptible person comes into contact with an infected person for at least one hour, then they get infected with a probability of 0.30. This is called the infection rate (IR) and it is constant.
     \item An infected person will recover after seven days. This is called the recovery period (RP) and it is constant.
     \item A person can only be infected if they were previously susceptible, and a person can only be recovered if they were previously infected.
