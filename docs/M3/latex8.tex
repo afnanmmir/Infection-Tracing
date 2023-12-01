@@ -46,7 +46,7 @@ afnanmir@utexas.edu\\
 \thispagestyle{empty}
 
 \begin{abstract}
-The COVID-19 pandemic showed that contact tracing helped mitigate the spread of the virus. However, manual contact tracing is slow and prone to inaccuracies. Thus, this project aims to automate contact tracing by utilizing Graph Neural Networks (GNNs) for link prediction. Our network analysis shows that the contact network is mostly exponential with hints of scale-free properties. Additionally, our analysis identifies a discernible pattern in mobility, characterized by an increase in travel during the weekends. Furthermore, we were able to achieve an AUC of 0.91 for static link prediction by using the GCN architecture and performing feature engineering. Future plans include performing temporal link prediction to automate contact tracing.
+The COVID-19 pandemic showed that contact tracing helped mitigate the spread of the virus. However, manual contact tracing is slow and prone to inaccuracies. Thus, this project aims to automate contact tracing by utilizing Graph Neural Networks (GNNs) for link prediction. Our network analysis shows that the contact network is mostly exponential with hints of scale-free properties. Additionally, our analysis identifies a discernible pattern in mobility, characterized by an increase in travel during the weekends. Furthermore, we were able to achieve an AUC of 0.91 for static link prediction by using the GCN architecture and performing feature engineering. We then performed a temporal link prediction, which uses previous contact networks to predict future contacts. We achieved an ROC AUC score of 0.79 on nodes that were seen during training, and 0.54 on nodes that were not seen during training.
 \end{abstract}
 
 
@@ -55,7 +55,7 @@ The COVID-19 pandemic showed that contact tracing helped mitigate the spread of 
 
 When COVID-19 first appeared, manual contact tracing was deployed to mitigate the initial outbreak. Contact tracing is the process of tracking how the virus spreads by identifying people who may have come in contact with an infected person, and then asking them to isolate and get tested.
 
-However, the pandemic revealed that the COVID-19 virus spread faster than manual contact tracing \cite{flaxman2020estimating}. Thus, this project's objective is to automate contact tracing by incorporating machine learning using GNNs to hopefully increase the mitigation of the spread of COVID-19 when compared to manual contact tracing. Firstly, we will create and analyze contact networks. Then we will use GNNs to perform static link prediction. Finally, for M3, we will perform temporal link prediction on the contact networks.
+However, the pandemic revealed that the COVID-19 virus spread faster than manual contact tracing \cite{flaxman2020estimating}. Thus, this project's objective is to automate contact tracing by incorporating machine learning using GNNs to hopefully increase the mitigation of the spread of COVID-19 when compared to manual contact tracing. Firstly, we will create and analyze contact networks. Then we will use GNNs to perform static link prediction using a 5-Day Contact Network. Finally, we will perform temporal link prediction on the daily contact networks.
 
 % - What is the big picture? What is the main objective of this project?
 % - Why is this project interesting?
@@ -88,54 +88,9 @@ The SEIRD model is a mathematical model that predicts the change in Susceptible,
 
 The Long Short Term Memory model is a machine learning model that has been used to predict the number of cases over time \cite{SEIRD-LSTM}. A hybrid of SIRD and LSTM helps account for time-dependent parameters of the SIRD model \cite{SIRD-LSTM-hybrid}. Also, GNNs, which are graph-based ML models, have been used on mobility data to predict virus spread and for link prediction for contact tracing \cite{positivity-hospitalization-GNN}\cite{contact-tracing-GNN}.
 
+Additionally, there have been studies done on performing graph learning on networks that are dynamic in nature, such as contact networks. The Temporal Graph Network (TGN) framework allows us to perform deep learning tasks on a sequence of graphs by using memory modules and graph-based operators \cite{rossi2020temporal}
+
 We hope to build off of these previous works by utilizing GNNs and other deep learning techniques to be able to predict contacts between individuals. This is a non-trivial and novel task, as it requires the model to potentially learn a graph's structure based on its structure at previous time steps as well as node features.
-% The LSTM is a ML model that has also been used to predict the number of cases over time \cite{SEIRD-LSTM}. Another approach uses a hybrid of SIRD and LSTM to account for time dependent parameters of the SIRD model \cite{SIRD-LSTM-hybrid}.
-% Other approaches include the Long Short-Term Memory (LSTM) model \cite{SEIRD-LSTM} and a hybrid of SIRD and LSTM \cite{SIRD-LSTM-hybrid}.
-
-% Also, GNNs, which are graph-based ML models, have been used on mobility data to predict the number of cases and hospitalizations \cite{positivity-hospitalization-GNN}. GNNs have also been used for link prediction, which is useful for contact tracing \cite{contact-tracing-GNN}. 
-
-% Also, GNNs, which are graph-based ML models, have been used on mobility data to predict virus spread \cite{positivity-hospitalization-GNN}. GNNs have also been used for link prediction for contact tracing \cite{contact-tracing-GNN}. 
-% Also, GNNs, which are graph-based ML models, have been used on mobility data to predict virus spread \cite{positivity-hospitalization-GNN} for link prediction for contact tracing \cite{contact-tracing-GNN}. 
-
-
-% Feature Based Approach:
-%     - Multivariate Logistic Regression to predict infectious risk
-%     - Might not be an actual study, just a proposal
-% https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8570232/#Sec2title
-
-
-% https://www.frontiersin.org/articles/10.3389/fpubh.2021.727274/full
-% Uses 2 approaches:
-% SEIRD - Susceptible, Exposed, Infectious, Recovered, Deceased
-%     - simulating the spread of the virus over time
-%     - Simulation Approach
-% LSTM
-%     - To predict the number of cases over time by training the NN over a subset of time
-%     - ML Approach
-
-% Previously used methods for predicting infections include mathemical models and ML models.
-% One example of a mathemical model is the SEIRD model, which attempts to predict the change in Susceptible, Exposed, Infected, Recovered, and Deceased people over time through the use of differential equations. This model is used to simulate the spread of the virus over time. 
-
-% https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10066232/#:~:text=Message%20passing%20instances%20of%20GNNs,as%20well%20as%20hospitalization%20rates.
-%     - utilizes GNNs on mobility data to predict number of cases and hospitalizations
-
-
-% https://www.nature.com/articles/s41598-021-97037-5
-%     - Combined mathemical and ML models
-%     - Specifically uses LSTM to predict number of cases over time
-%     - Uses Markov Model to reduce prediction error of the LSTM
-
-% https://www.nature.com/articles/s41598-022-06992-0
-%     - Combines LSTM and SIRD
-%     - Uses LSTM to solve for the time dependent parameters of the SIRD model
-%     - Uses LSTM to predict the number of cases over time
-
-
-
-
-
-
-
 
 
 \Section{Approach}
@@ -200,8 +155,9 @@ The simulation algorithm is shown in Algorithm \ref{alg:sir}. The simulation was
 
 % Separately, we also created a sample Susceptible-Infected (SI) simulation using data from July 1st, 2020. We did not include a recovery/death or incubation period in this model mainly because we only performed the simulation over one day. For the simulation, we did the following: at hour 0, we randomly infected 20\% of the nodes in the graph. Then we looked at all contacts between people for hour 1, and if an infected person came into contact with a susceptible person, we created an edge between them and infected the susceptible person with a probability of 1. We repeated the previous step for the remaining 22 hours of the day.
 
-After generating and analyzing the 5-Day Contact Network, and Temporal Contact Networks, and performing the SIR simulation, we moved towards leveraging graph learning techniques to perform link prediction, which is the fundamental task behind automating contact tracing. For this milestone, we focused on performing link prediction on a static graph. In order to have enough data to train and evaluate our models, we used the 5-Day Contact Network. 
+After generating and analyzing the 5-Day Contact Network, and Temporal Contact Networks, and performing the SIR simulation, we moved towards leveraging graph learning techniques to perform link prediction, which is the fundamental task behind automating contact tracing. Initially, we focused on performing link prediction on a static graph. In order to have enough data to train and evaluate our models, we used the 5-Day Contact Network. 
 
+\subsubsection{Static Link Prediction}
 Our first goal was to create a baseline link prediction model. We used the node2vec algorithm to generate node embeddings for each node in the graph \cite{grover2016node2vec}. We then generated the dataset of edges. To perform link prediction, we need a set of positive edges, which are the edges present in the network, and we need a set of negative edges, which are the edges not present in the network. This allows us to boil down the link prediction to a binary classification problem. Given our network, we created a set of negative edges that was equal in size to the set of positive edges to ensure balanced training. Using the node2vec embeddings and the set of positive and negative edges, we trained a GraphSAGE model to perform link prediction on the static 5-Day Contact Network \cite{hamilton2018inductive}.
 
 \begin{figure}
@@ -215,9 +171,8 @@ A sample example of training and testing data is shown in Figure \ref{fig:toy_ed
 
 After creating the baseline model, we searched for ways to improve the model's performance on the graph. This would include performing feature engineering techniques to add dimensions to our node embeddings and exploring the use of other GNN architectures such as the Graph Convolutional Network (GCN) and/or the Graph Attention Network (GAT) \cite{kipf2017semisupervised} \cite{veličković2018graph}. We hoped to be able to finetune the model and improve its performance to the point we could use it to perform link prediction on the Temporal Contact Networks. This approach is scalable because generating the training and testing edge sample, node embeddings, and node features can be done on a network of any size; however, generating the node2vec embeddings for a large network can be computationally expensive.
 
-% Then for each hour from 1 to 23, we looked at all contacts between people, and if an infected person came into contact with a susceptible person, we infected the susceptible person with a probability of 1.0. We did this for 24 hours.
-
-% Next, with each time step (1 hour), we looked at all the neighbors of each infected node and infected them with a probability of 1.0, so we assumed any contact led to an infection. We did this for 24 hours.
+\subsubsection{Temporal Link Prediction}
+After performing static link prediction on the 5-Day Contact Network, we moved towards performing temporal link prediction on the Temporal Contact Networks. 
 
 
 \Section{Experimental Setup and Results}

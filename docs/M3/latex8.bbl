@@ -40,6 +40,10 @@ T.~N. Kipf and M.~Welling.
 C.~D. Lab.
 \newblock {Foursquare Community Mobility Data with Basemap (US)}, 2020.
 
+\bibitem{rossi2020temporal}
+E.~Rossi, B.~Chamberlain, F.~Frasca, D.~Eynard, F.~Monti, and M.~Bronstein.
+\newblock Temporal graph networks for deep learning on dynamic graphs, 2020.
+
 \bibitem{positivity-hospitalization-GNN}
 K.~Skianis, G.~Nikolentzos, B.~Gallix, R.~Thiebaut, and G.~Exarchakis.
 \newblock Predicting covid-19 positivity and hospitalization with multi-scale
