@@ -158,7 +158,7 @@ The simulation algorithm is shown in Algorithm \ref{alg:sir}. The simulation was
 After generating and analyzing the 5-Day Contact Network, and Temporal Contact Networks, and performing the SIR simulation, we moved towards leveraging graph learning techniques to perform link prediction, which is the fundamental task behind automating contact tracing. Initially, we focused on performing link prediction on a static graph. In order to have enough data to train and evaluate our models, we used the 5-Day Contact Network. 
 
 \subsubsection{Static Link Prediction}
-Our first goal was to create a baseline link prediction model. We used the node2vec algorithm to generate node embeddings for each node in the graph \cite{grover2016node2vec}. We then generated the dataset of edges. To perform link prediction, we need a set of positive edges, which are the edges present in the network, and we need a set of negative edges, which are the edges not present in the network. This allows us to boil down the link prediction to a binary classification problem. Given our network, we created a set of negative edges that was equal in size to the set of positive edges to ensure balanced training. Using the node2vec embeddings and the set of positive and negative edges, we trained a GraphSAGE model to perform link prediction on the static 5-Day Contact Network \cite{hamilton2018inductive}.
+Our first goal was to create a baseline link prediction model. We used the node2vec algorithm to generate node embeddings for each node in the graph \cite{grover2016node2vec}. We then generated the dataset of edges. To perform link prediction, we need a set of positive edges, which are the edges present in the network, and we need a set of negative edges, which are the edges not present in the network. This allows us to boil down the link prediction to a binary classification problem. Given our network, we created a set of negative edges that was equal in size to the set of positive edges to ensure balanced training. Using the node2vec embeddings and the set of positive and negative edges, we trained a GraphSAGE model to perform link prediction on the static 5-Day Contact Network \cite{hamilton2018inductive}. Our training set consisted of all positive and negative edges from the 5-Day contact network, and our testing set consisted of all new positive and negative edges found on the sixth day.
 
 \begin{figure}
     \centering
@@ -172,7 +172,9 @@ A sample example of training and testing data is shown in Figure \ref{fig:toy_ed
 After creating the baseline model, we searched for ways to improve the model's performance on the graph. This would include performing feature engineering techniques to add dimensions to our node embeddings and exploring the use of other GNN architectures such as the Graph Convolutional Network (GCN) and/or the Graph Attention Network (GAT) \cite{kipf2017semisupervised} \cite{veličković2018graph}. We hoped to be able to finetune the model and improve its performance to the point we could use it to perform link prediction on the Temporal Contact Networks. This approach is scalable because generating the training and testing edge sample, node embeddings, and node features can be done on a network of any size; however, generating the node2vec embeddings for a large network can be computationally expensive.
 
 \subsubsection{Temporal Link Prediction}
-After performing static link prediction on the 5-Day Contact Network, we moved towards performing temporal link prediction on the Temporal Contact Networks. 
+After performing static link prediction on the 5-Day Contact Network, we moved towards performing temporal link prediction on the Temporal Contact Networks.
+
+//todo
 
 
 \Section{Experimental Setup and Results}
@@ -183,17 +185,17 @@ After performing static link prediction on the 5-Day Contact Network, we moved t
 %     \caption{Contact network after one day}
 %     \label{fig:my_label}
 % \end{figure}
+\subsection{5-Day Network Analysis}
 
-\vspace{-15pt}
-\begin{figure}[h]
+\begin{figure}
     \centering
     \includegraphics[width=0.15\textwidth]{imgs/5_day_network.png}
     \caption{5-Day Contact Network from July 1st, 2020 to July 5th, 2020}
     \label{fig:my_label}
 \end{figure}
 
-\vspace{-15pt}
-\begin{figure}[h]
+
+\begin{figure}
     \centering
     \includegraphics[width=0.23\textwidth]{imgs/5_day_log_log_degree_distribution.png}
     \caption{5-Day Contact Network Degree Distribution}
@@ -212,6 +214,8 @@ In Figure \ref{fig:my_label}, we can see the 5-Day Contact Network. Network prop
     \label{fig:simulation_results}
 \end{figure}
 
+\subsection{Temporal Network Analysis and Simulation} 
+
 In addition, the simulation results are shown in Figure \ref{fig:simulation_results}. The simulation results show that the number of infected people initially increases, but then decreases significantly and approaches zero. However, the number of recovered people exhibits the opposite behavior. This makes sense since the people who started with the infection at the beginning of the simulation recover after seven days; thus, they can no longer infect others nor become susceptible again. Also, the number of susceptible people decreases over time, which makes sense since they are getting infected and recovering. The maximum number of infected people on any given day is about 11,500 and the total number of people infected over the simulation is about 14,300.
 
 It is important to note that this simulation was run on limited data. The total number of nodes in the simulation, which is the total number of people, is around 45,000, whereas the actual population in the Austin metropolitan area in 2020 was around 2 million. Furthermore, this model assumes a closed population, which is not the case in Austin, TX. People are constantly moving in and out of the city. Thus, the simulation results are not representative of the actual spread of the virus in Austin, TX.  Having access to more data would allow the simulation to provide realistic results. However, this simulation does show that the virus can spread quickly, as seen in the first week of the simulation. Thus, it is important to have an efficient and accurate contact tracing system to mitigate the spread of the virus.
@@ -225,7 +229,8 @@ It is important to note that this simulation was run on limited data. The total 
 
 We also analyzed the Temporal Contact Networks. The clustering coefficient and the average node degree for these networks are shown in Figure \ref{fig:temporal_stats}. The results reveal a seven-day periodic pattern with peaks occurring on the weekends. These results make sense since people are more likely to go out and socialize on the weekends. This increase in socialization on the weekends leads to more contacts, which leads to a higher clustering coefficient and average node degree.
 
-After performing the analysis on the 5-Day Contact Network and Temporal Contact Networks, we moved towards performing link prediction on the 5-Day Contact Network. For our baseline model, as stated in the approach, we used a GraphSAGE model with node2vec embeddings. We trained the model for 1000 epochs on a 90/10 train/test split with the Adam optimizer \cite{kingma2017adam}. The model achieved an AUC score of 0.49 on the test data, which is worse than random guessing. Part of this could be because no internal node features were used in the node embeddings.
+\subsection{Static Link Prediction}
+After performing the analysis on the 5-Day Contact Network and Temporal Contact Networks, we moved towards performing link prediction on the 5-Day Contact Network. For our baseline model, as stated in the approach, we used a GraphSAGE model with node2vec embeddings. We trained the model for 1000 epochs with the Adam optimizer, where the train set is the set of positive and negative edges from the 5-Day Contact Network, and the test set is the set of positive and negative edges on the sixth day \cite{kingma2017adam}. The model achieved an AUC score of 0.49 on the test data, which is worse than random guessing. Part of this could be because no internal node features were used in the node embeddings.
 
 To improve upon this, we performed feature engineering to generate additional features for each node. The features we added included average number of locations traveled to per day, average distance traveled per day, age, gender, and State-Age-Gender (SAG) score. By adding these features to the node2vec embeddings, we were able to improve the AUC score to 0.63, which is a significant improvement over the baseline model. We can see that the additional features helped the model learn the graph structure better. 
 
@@ -237,7 +242,11 @@ Seeking further enhancement, we explored a different model architecture, specifi
 
 % From these performance metrics, we can see that performing link prediction on the Temporal Contact Networks is a feasible task. We can also see that the GCN model performs significantly better than the GraphSAGE model. Thus, we plan to use the GCN model to perform link prediction on the Temporal Contact Networks for M3.
 
-While these performance metrics establish the feasibility of link prediction on contact networks, it's crucial to note a limitation in the current approach—namely, its inability to capture temporal data. Recognizing this limitation, our next objective for M3 is to implement temporal link prediction using the GCN model. This aligns with our goal of automating contact tracing.
+While these performance metrics establish the feasibility of link prediction on contact networks, it's crucial to note a limitation in the current approach—namely, its inability to capture temporal data. 
+
+% Recognizing this limitation, our next objective for M3 is to implement temporal link prediction using the GCN model. This aligns with our goal of automating contact tracing.
+\subsection{Temporal Link Prediction}
+//todo
 
 % In addition, we can see the resulting infected graph from our simulation in Figure \ref{fig:my_label2}.
 % \begin{figure}
@@ -257,7 +266,7 @@ While these performance metrics establish the feasibility of link prediction on 
 % \end{figure}
 
 
-\Section{Conclusion and Short-Term Plans}
+\Section{Conclusion and Future Work}
 Through the analysis of the 5-Day Contact Network, we were able to determine that the network is mostly exponential in degree distribution, with hints of scale-free properties. Some people came into contact with many other people whereas others stayed within their cliques. The simulation showed that the number of infected people initially increases, but after a few days, decreases significantly.
 
 The analysis of the Temporal Contact Networks highlights a pattern in mobility. Particularly, people tend to socialize more on the weekends, which leads to a higher clustering coefficient and average node degree.
