@@ -174,8 +174,11 @@ After creating the baseline model, we searched for ways to improve the model's p
 \subsubsection{Temporal Link Prediction}
 After performing static link prediction on the 5-Day Contact Network, we moved towards performing temporal link prediction on the Temporal Contact Networks.
 
-//todo
+Firstly, the Temporal Contact Networks are converted into a list of edge data entries, which we will call Temporal Edge Data (TED). Each data entry consists of the endpoints of the edge and the timestamp of when the edge existed. For example, if an edge between node A and B exists in the contact networks for July 1st, 2020 and July 2nd, 2020, but does not exist in the contact network for July 3rd, 2020, then the edge data entries would be [(A, B, 1), (A, B, 2)]. Note how (A, B, 3) is not included in the list of edge data entries. This is because the edge between A and B does not exist in the contact network for July 3rd, 2020. Once the complete TED is created, it is sorted by the timestamp. Then the first 85\% of the TED is used as the training set, and the last 15\% of the list is used as the testing set.
 
+In order to perform temporal link prediciton, we utilized the TGN framework [9]. The TGN framework allows us to perform deep learning tasks on a sequence of graphs. The TGN framework consists of 5 main modules: memory, message function, message aggregator, memory updater, and embedding.
+
+The memory module is a memory bank that stores the temporal information of the nodes in the graph. The message function module is an MLP that takes in a batch of edge data from the TED, and generates two messages for each edge, one for each endpoint. The message aggregator combines the raw messages from the message function by taking the latest message for each node. Thus, the output of the message aggregator is one message for each node. The memory updater is an RNN that takes the messages from the message aggregator to updates the nodes' temoral memory. The embedding module utilizes the TGAT model to generate node embeddings given a node and its neighbors' memories at the previous timestamp. Node embeddings for two nodes are passed through an MLP to generate a probability of the two nodes being connected. The model is trained using the Adam optimizer and the binary cross entropy loss function.
 
 \Section{Experimental Setup and Results}
 
@@ -246,7 +249,11 @@ While these performance metrics establish the feasibility of link prediction on 
 
 % Recognizing this limitation, our next objective for M3 is to implement temporal link prediction using the GCN model. This aligns with our goal of automating contact tracing.
 \subsection{Temporal Link Prediction}
-//todo
+After performing static link prediction on the 5-Day Contact Network, we performed temporal link prediction on the Temporal Contact Networks. We utilized the TGN framework to perform the link prediction. Furthermore, we used the same node features as static link prediction. The model was trained such that it terminated after 5 consecutive epochs of no improvement in the validation loss.
+
+The model achieved an ROC AUC score of 0.79 on nodes that were seen during training, and 0.54 on nodes that were not seen during training. This shows that the model was able to learn the graph structure and perform link prediction on the Temporal Contact Networks. However, the model's poop performance on unseen nodes suggests that the model works best on a closed population.
+
+Furthermore, minimizing the false-negative rate is important. False negatives are instances where the model predicts a negative edge between two nodes, when in reality there is a positive edge between the two nodes. Recall is a measurement of the true positive rate and helps minimize the false negatives. Looking at the confusion matric in Figure (X), it is evident that the recall for the model on nodes that were seen during training is 0.78.
 
 % In addition, we can see the resulting infected graph from our simulation in Figure \ref{fig:my_label2}.
 % \begin{figure}
@@ -271,11 +278,13 @@ Through the analysis of the 5-Day Contact Network, we were able to determine tha
 
 The analysis of the Temporal Contact Networks highlights a pattern in mobility. Particularly, people tend to socialize more on the weekends, which leads to a higher clustering coefficient and average node degree.
 
-Finally, we were able to perform static link prediction on the 5-Day Contact Network. We were able to improve the model's performance by performing feature engineering and using the GCN model. 
+Then, we were able to perform static link prediction on the 5-Day Contact Network. We were able to improve the model's performance by performing feature engineering and using the GCN model. Finally, we were able to perform temporal link prediction on the Temporal Contact Networks using the TGN framework, achieveing a performance that is significantly better than random guessing.
 
-For M3, we plan to use the Temporal Contact Networks for temporal link prediction. Essentially, given contact networks for July 1st, 2020 to August 15th, 2020, the model will attempt to predict the contacts that will occur from August 16th, 2020 to August 31st, 2020. We will also attempt to improve the model's performance by performing feature engineering and using other GNN architectures.
+For future work, we propose adding edge features to the dataset, such as how long two people were in contact for and where the contact occurred. We also propose implementing dynamic node features, which are features of nodes that change over time. For example, we can add a feature that represents the number of people a node has come into contact with over the past week. We hypothesize that adding these features will improve the performance of temporal link prediction.
 
-For this milestone, Afnan generated and analyzed the 5-Day Contact Network and performed static link prediction on it. Jaykumar created and analyzed the Temporal Contact Networks and ran the SIR simulation on them.
+% For M3, we plan to use the Temporal Contact Networks for temporal link prediction. Essentially, given contact networks for July 1st, 2020 to August 15th, 2020, the model will attempt to predict the contacts that will occur from August 16th, 2020 to August 31st, 2020. We will also attempt to improve the model's performance by performing feature engineering and using other GNN architectures.
+
+For this project, Afnan generated and analyzed the 5-Day Contact Network and performed static link prediction. Jaykumar created and analyzed the Temporal Contact Networks, ran the SIR simulation, and performed temporal link prediction.
 
 
 % For M2, we plan to do a more complete analysis of the network by considering both July and August data. We also plan to run more realistic simulations by accounting for the incubation period, deceased people, and recovered people. We also plan to implement GNNs at a small scale to perform link prediction. Specifically, we will use GNNs to predict the people that come into contact with previously infected people. By predicting contact between people, we will be able to predict the spread of the virus.
