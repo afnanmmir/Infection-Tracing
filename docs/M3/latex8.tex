@@ -174,11 +174,18 @@ After creating the baseline model, we searched for ways to improve the model's p
 \subsubsection{Temporal Link Prediction}
 After performing static link prediction on the 5-Day Contact Network, we moved towards performing temporal link prediction on the Temporal Contact Networks.
 
-Firstly, the Temporal Contact Networks are converted into a list of edge data entries, which we will call Temporal Edge Data (TED). Each data entry consists of the endpoints of the edge and the timestamp of when the edge existed. For example, if an edge between node A and B exists in the contact networks for July 1st, 2020 and July 2nd, 2020, but does not exist in the contact network for July 3rd, 2020, then the edge data entries would be [(A, B, 1), (A, B, 2)]. Note how (A, B, 3) is not included in the list of edge data entries. This is because the edge between A and B does not exist in the contact network for July 3rd, 2020. Once the complete TED is created, it is sorted by the timestamp. Then the first 85\% of the TED is used as the training set, and the last 15\% of the list is used as the testing set.
+Firstly, the Temporal Contact Networks are converted into a list of edge data entries, which we will call Temporal Edge Data (TED). Each data entry consists of the endpoints of the edge and the timestamp of when the edge existed. For example, if an edge between node A and B exists in the contact networks for July 1st, 2020 and July 2nd, 2020, but does not exist in the contact network for July 3rd, 2020, then the edge data entries would be [(A, B, 1), (A, B, 2)]. Note how (A, B, 3) is not included in the list of edge data entries. This is because the edge between A and B does not exist in the contact network for July 3rd, 2020. Once the complete TED is created, it is sorted by the timestamp. Then the first 85\% of the TED is used as the training set, and the last 15\% of the list is used as the testing set. Finally, the TED gets split into batches, which get processed sequentially by the model.
 
 In order to perform temporal link prediciton, we utilized the TGN framework [9]. The TGN framework allows us to perform deep learning tasks on a sequence of graphs. The TGN framework consists of 5 main modules: memory, message function, message aggregator, memory updater, and embedding.
 
-The memory module is a memory bank that stores the temporal information of the nodes in the graph. The message function module is an MLP that takes in a batch of edge data from the TED, and generates two messages for each edge, one for each endpoint. The message aggregator combines the raw messages from the message function by taking the latest message for each node. Thus, the output of the message aggregator is one message for each node. The memory updater is an RNN that takes the messages from the message aggregator to updates the nodes' temoral memory. The embedding module utilizes the TGAT model to generate node embeddings given a node and its neighbors' memories at the previous timestamp. Node embeddings for two nodes are passed through an MLP to generate a probability of the two nodes being connected. The model is trained using the Adam optimizer and the binary cross entropy loss function.
+The memory module is a memory bank that stores the temporal information of the nodes in the graph. The message function module takes in a batch of edge data from the TED, and generates two messages for each edge, one for each endpoint. If a node is an endpoint for multiple edges, then it will have multiple messages. The original paper utilizes "identity" as the message function, which essentially concatenates the inputs. In contrast, our model uses an MLP as the message function, which adds a learnable parameter improving the complexity of the model. The message aggregator combines the raw messages from the message function by taking the latest message for each node. Thus, the output of the message aggregator is one message for each node. The memory updater is an RNN that takes the messages from the message aggregator to updates the nodes' temoral memory. The embedding module utilizes the TGAT model to generate node embeddings given a node and its neighbors' memories from the prvious batch. Node embeddings for two nodes are passed through an MLP to generate a probability of the two nodes being connected. The model is trained using the Adam optimizer and the binary cross entropy loss function. Additionally, the original model uses no node features. To improve performance, we generate and utilize static node features. The model's architecture is shown in Figure \ref{fig:tgn_architecture}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.50\textwidth]{imgs/tgn_flow.png}
+    \caption{TGN Modules Architecture [9]}
+    \label{fig:tgn_architecture}
+\end{figure}
 
 \Section{Experimental Setup and Results}
 
@@ -237,11 +244,18 @@ After performing the analysis on the 5-Day Contact Network and Temporal Contact 
 
 To improve upon this, we performed feature engineering to generate additional features for each node. The features we added included average number of locations traveled to per day, average distance traveled per day, age, gender, and State-Age-Gender (SAG) score. By adding these features to the node2vec embeddings, we were able to improve the AUC score to 0.63, which is a significant improvement over the baseline model. We can see that the additional features helped the model learn the graph structure better. 
 
-% We then attempted to improve upon this by taking the features we generated and normalizing them before appending them. We saw that the features were all of different scales compared to each other and the node2vec embeddings, so we hypothesized that normalizing the features would improve the model's performance. This, again, improved our model's performance, as we were able to achieve an AUC score of 0.75.
-
 We noticed that the features were of different scales, so we hypothesized that normalizing the features would improve the model's accuracy. This adjustment improved the performance of the model, leading to an AUC of 0.75.
 
 Seeking further enhancement, we explored a different model architecture, specifically the GCN model. Utilizing the same features and data, the GCN model achieved an AUC score of 0.91, demonstrating a significant improvement over the initial model.
+
+Furthermore, minimizing the false-negative rate is important. False negatives are instances where the model predicts a negative edge between two nodes, when in reality there is a positive edge between the two nodes. Recall is a measurement of the true positive rate and helps minimize the false negatives. It is evident that the recall for static link prediction is 0.83, which is derived from the confusion matrix. The final results are shown in Figure \ref{fig:static_link_prediction_results}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{imgs/static_prediction_data_split.png}
+    \caption{Static Link Prediction Results} 
+    \label{fig:static_link_prediction_results}
+\end{figure}
 
 % From these performance metrics, we can see that performing link prediction on the Temporal Contact Networks is a feasible task. We can also see that the GCN model performs significantly better than the GraphSAGE model. Thus, we plan to use the GCN model to perform link prediction on the Temporal Contact Networks for M3.
 
@@ -251,9 +265,15 @@ While these performance metrics establish the feasibility of link prediction on 
 \subsection{Temporal Link Prediction}
 After performing static link prediction on the 5-Day Contact Network, we performed temporal link prediction on the Temporal Contact Networks. We utilized the TGN framework to perform the link prediction. Furthermore, we used the same node features as static link prediction. The model was trained such that it terminated after 5 consecutive epochs of no improvement in the validation loss.
 
-The model achieved an ROC AUC score of 0.79 on nodes that were seen during training, and 0.54 on nodes that were not seen during training. This shows that the model was able to learn the graph structure and perform link prediction on the Temporal Contact Networks. However, the model's poop performance on unseen nodes suggests that the model works best on a closed population.
+The model achieved an ROC AUC score of 0.79 on nodes that were seen during training, and 0.54 on nodes that were not seen during training. This shows that the model was able to learn the graph structure and perform link prediction on the Temporal Contact Networks. However, the model's poor performance on unseen nodes suggests that the model works best on a closed population. Furthermore, it is evident that the recall for temporal link prediction is 0.78, which is derived from the confusion matrix. The final results are shown in Figure \ref{fig:temporal_link_prediction_results}.
 
-Furthermore, minimizing the false-negative rate is important. False negatives are instances where the model predicts a negative edge between two nodes, when in reality there is a positive edge between the two nodes. Recall is a measurement of the true positive rate and helps minimize the false negatives. Looking at the confusion matric in Figure (X), it is evident that the recall for the model on nodes that were seen during training is 0.78.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{imgs/temporal_link_prediction_results.png}
+    \caption{Temporal Link Prediction Results} 
+    \label{fig:temporal_link_prediction_results}
+\end{figure}
+
 
 % In addition, we can see the resulting infected graph from our simulation in Figure \ref{fig:my_label2}.
 % \begin{figure}
@@ -278,7 +298,7 @@ Through the analysis of the 5-Day Contact Network, we were able to determine tha
 
 The analysis of the Temporal Contact Networks highlights a pattern in mobility. Particularly, people tend to socialize more on the weekends, which leads to a higher clustering coefficient and average node degree.
 
-Then, we were able to perform static link prediction on the 5-Day Contact Network. We were able to improve the model's performance by performing feature engineering and using the GCN model. Finally, we were able to perform temporal link prediction on the Temporal Contact Networks using the TGN framework, achieveing a performance that is significantly better than random guessing.
+Then, we were able to perform static link prediction on the 5-Day Contact Network. We were able to improve the model's performance by performing feature engineering and using the GCN model. Finally, we were able to perform temporal link prediction on the Temporal Contact Networks using the TGN framework, achieveing a performance that is significantly better than random guessing for a closed population. These results are important because they show that link prediction on contact networks is a feasible task. Predicting contact between people can be crucial in mitigating the spread of the virus because it can lead to proactive measures such as quarantining and testing. For example, if person B is infected and the model predicts that person A will come into contact with person B, then person A can be mindful of their contact with person B and take proactive measures such staying home and getting tested. This can help mitigate the spread of the virus.
 
 For future work, we propose adding edge features to the dataset, such as how long two people were in contact for and where the contact occurred. We also propose implementing dynamic node features, which are features of nodes that change over time. For example, we can add a feature that represents the number of people a node has come into contact with over the past week. We hypothesize that adding these features will improve the performance of temporal link prediction.
 
