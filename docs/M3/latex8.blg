@@ -1,57 +1,57 @@
-This is BibTeX, Version 0.99d (TeX Live 2022)
+This is BibTeX, Version 0.99d (TeX Live 2023)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: latex8.aux
 The style file: latex8.bst
 Database file #1: latex8.bib
 Warning--entry type for "SEIRD-LSTM" isn't style-file defined
---line 44 of file latex8.bib
+--line 87 of file latex8.bib
 Warning--entry type for "SIR" isn't style-file defined
---line 53 of file latex8.bib
+--line 105 of file latex8.bib
 Warning--entry type for "SIRD-LSTM-hybrid" isn't style-file defined
---line 62 of file latex8.bib
+--line 123 of file latex8.bib
 Warning--entry type for "positivity-hospitalization-GNN" isn't style-file defined
---line 71 of file latex8.bib
+--line 141 of file latex8.bib
 Warning--entry type for "DVN/PFLAH4_2020" isn't style-file defined
---line 101 of file latex8.bib
-You've used 13 entries,
+--line 201 of file latex8.bib
+You've used 14 entries,
             2118 wiz_defined-function locations,
-            556 strings with 6178 characters,
-and the built_in function-call counts, 3917 in all, are:
-= -- 314
-> -- 307
+            559 strings with 6323 characters,
+and the built_in function-call counts, 4243 in all, are:
+= -- 340
+> -- 335
 < -- 0
-+ -- 121
-- -- 108
-* -- 260
-:= -- 673
-add.period$ -- 26
-call.type$ -- 13
-change.case$ -- 93
++ -- 132
+- -- 118
+* -- 283
+:= -- 729
+add.period$ -- 28
+call.type$ -- 14
+change.case$ -- 101
 chr.to.int$ -- 0
-cite$ -- 13
-duplicate$ -- 91
-empty$ -- 287
-format.name$ -- 108
-if$ -- 787
+cite$ -- 14
+duplicate$ -- 98
+empty$ -- 309
+format.name$ -- 118
+if$ -- 852
 int.to.chr$ -- 0
-int.to.str$ -- 13
+int.to.str$ -- 14
 missing$ -- 0
-newline$ -- 55
-num.names$ -- 26
-pop$ -- 158
+newline$ -- 59
+num.names$ -- 28
+pop$ -- 171
 preamble$ -- 1
-purify$ -- 80
+purify$ -- 87
 quote$ -- 0
-skip$ -- 106
+skip$ -- 114
 stack$ -- 0
-substring$ -- 65
-swap$ -- 13
+substring$ -- 70
+swap$ -- 14
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 52
+type$ -- 56
 warning$ -- 0
-while$ -- 26
-width$ -- 15
-write$ -- 106
+while$ -- 28
+width$ -- 16
+write$ -- 114
 (There were 5 warnings)
