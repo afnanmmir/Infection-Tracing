@@ -10,3 +10,10 @@ graph_creation/test.ipynb
 simulation/*.gif
 simulation/*.mp4
 link_prediction_graph_creation/contact_graphs/*
+link_prediction_graph_creation/contact_graphs_no_dwell_threshold/*
+test.ipynb
+link_prediction_graph_creation/feature_combination/*.pkl
+link_prediction_graph_creation/feature_selection_method1/*.pkl
+link_prediction_graph_creation/feature_selection_method2/*.pkl
+link_prediction_graph_creation/*.pkl
+link_prediction_graph_creation/tgn_data/*
