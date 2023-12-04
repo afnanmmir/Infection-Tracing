@@ -18,6 +18,8 @@ Project for Machine Learning on Real World Networks
     - `generate_link_pred_input.ipynb` contains code that utilizes the Temporal Contact Networks and their features to generate a data format that can be used by the TGN link prediction framework (convert `.gexf` files to `csv` and `npy` files)
     - `simulation.py` contains code that uses the `Temporal Contact Networks` to run an SIR simulation
 - The `tgn` folder contains the code (which is open source and created by the authors or TGN) that is used for the temporal link prediction
+    - Original TGN GitHub: `https://github.com/twitter-research/tgn`
+    - Original TGN Paper: `https://arxiv.org/abs/2006.10637`
     - `data` contains data used by the framework, which includes edge data and node data
     - `evaluation` contains code what evaluates the model. We modified this to plot the ROC AUC curve and generate the confusion matrix that can be used to determine recall
     - `modules` contains code for the main modules in the TGN framework
