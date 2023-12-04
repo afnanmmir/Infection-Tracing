@@ -1,18 +1,18 @@
-This is BibTeX, Version 0.99d (TeX Live 2023)
+This is BibTeX, Version 0.99d (TeX Live 2022)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: latex8.aux
 The style file: latex8.bst
 Database file #1: latex8.bib
 Warning--entry type for "SEIRD-LSTM" isn't style-file defined
---line 87 of file latex8.bib
+--line 44 of file latex8.bib
 Warning--entry type for "SIR" isn't style-file defined
---line 105 of file latex8.bib
+--line 53 of file latex8.bib
 Warning--entry type for "SIRD-LSTM-hybrid" isn't style-file defined
---line 123 of file latex8.bib
+--line 62 of file latex8.bib
 Warning--entry type for "positivity-hospitalization-GNN" isn't style-file defined
---line 141 of file latex8.bib
+--line 71 of file latex8.bib
 Warning--entry type for "DVN/PFLAH4_2020" isn't style-file defined
---line 201 of file latex8.bib
+--line 101 of file latex8.bib
 You've used 13 entries,
             2118 wiz_defined-function locations,
             556 strings with 6178 characters,
