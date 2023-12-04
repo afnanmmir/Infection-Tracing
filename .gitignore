@@ -17,3 +17,5 @@ link_prediction_graph_creation/feature_selection_method1/*.pkl
 link_prediction_graph_creation/feature_selection_method2/*.pkl
 link_prediction_graph_creation/*.pkl
 link_prediction_graph_creation/tgn_data/*
+tgn
+link_prediction/node2vec_tensors_6.pkl
