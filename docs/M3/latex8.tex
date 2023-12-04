@@ -46,7 +46,7 @@ afnanmir@utexas.edu\\
 \thispagestyle{empty}
 
 \begin{abstract}
-The COVID-19 pandemic showed that contact tracing helped mitigate the spread of the virus. However, manual contact tracing is slow and prone to inaccuracies. Thus, this project aims to automate contact tracing by utilizing Graph Neural Networks (GNNs) for link prediction. Our network analysis shows that the contact network is mostly exponential with hints of scale-free properties. Additionally, our analysis identifies a discernible pattern in mobility, characterized by an increase in travel during the weekends. Furthermore, we were able to achieve an AUC of 0.91 for static link prediction by using the GCN architecture and performing feature engineering. We then performed a temporal link prediction, which uses previous contact networks to predict future contacts. We achieved an ROC AUC score of 0.79 on nodes that were seen during training, and 0.54 on nodes that were not seen during training.
+The COVID-19 pandemic showed that contact tracing helped mitigate the spread of the virus. However, manual contact tracing is slow and prone to inaccuracies. Thus, this project aims to automate contact tracing by utilizing Graph Neural Networks (GNNs) for link prediction. Our network analysis shows that the contact network is mostly exponential with hints of scale-free properties. Additionally, our analysis identifies a discernible pattern in mobility, characterized by an increase in travel during the weekends. Furthermore, we were able to achieve an AUC of 0.91 for static link prediction by using the GCN architecture and performing feature engineering. We then performed a temporal link prediction using the Temporal Graph Networks (TGN) framework, which uses previous contact networks to predict future contacts \cite{rossi2020temporal}. We achieved an ROC AUC score of 0.79 on nodes that were seen during training, and 0.54 on nodes that were not seen during training.
 \end{abstract}
 
 
@@ -182,7 +182,7 @@ The memory module is a memory bank that stores the temporal information of the n
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.50\textwidth]{imgs/tgn_flow.png}
+    \includegraphics[width=0.45\textwidth]{imgs/tgn_flow.png}
     \caption{TGN Modules Architecture [9]}
     \label{fig:tgn_architecture}
 \end{figure}
@@ -252,7 +252,7 @@ Furthermore, minimizing the false-negative rate is important. False negatives ar
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{imgs/static_link_prediction_results.png}
+    \includegraphics[width=0.45\textwidth]{imgs/static_link_prediction_results.png}
     \caption{Static Link Prediction Results} 
     \label{fig:static_link_prediction_results}
 \end{figure}
@@ -269,7 +269,7 @@ The model achieved an ROC AUC score of 0.79 on nodes that were seen during train
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{imgs/temporal_link_prediction_results.png}
+    \includegraphics[width=0.45\textwidth]{imgs/temporal_link_prediction_results.png}
     \caption{Temporal Link Prediction Results} 
     \label{fig:temporal_link_prediction_results}
 \end{figure}
@@ -302,7 +302,9 @@ Then, we were able to perform static link prediction on the 5-Day Contact Networ
 
 Finally, we were able to perform temporal link prediction on the Temporal Contact Networks using the TGN framework, achieveing a performance that is significantly better than random guessing for a closed population. These results are important because they show that link prediction on contact networks is a feasible task. Predicting contact between people can be crucial in mitigating the spread of the virus because it can lead to proactive measures such as quarantining and testing. For example, if person B is infected and the model predicts that person A will come into contact with person B, then person A can be mindful of their contact with person B and take proactive measures such staying home and getting tested. This can help mitigate the spread of the virus. However, the model's poor performance on unseen nodes suggests that the model works best on a closed population. Thus, we plan to improve the model's performance on unseen nodes for future work.
 
-For future work, we propose adding edge features to the dataset, such as how long two people were in contact for and where the contact occurred. We also propose implementing dynamic node features, which are features of nodes that change over time. For example, we can add a feature that represents the number of people a node has come into contact with over the past week. We hypothesize that adding these features will improve the performance of temporal link prediction.
+For future work, we propose adding edge features to the dataset, such as how long two people were in contact for and where the contact occurred. We also propose implementing temporal node features, which are features of nodes that change over time. For example, we can add a feature that represents the number of people a node has come into contact with over the past week. We hypothesize that adding these features will improve the performance of temporal link prediction.
+
+We would like to thank the authors of TGN for making their code open source. We would also like to thank Professor Radu Marculescu and Sofia Hurtado for their guidance and support throughout the project.
 
 % For M3, we plan to use the Temporal Contact Networks for temporal link prediction. Essentially, given contact networks for July 1st, 2020 to August 15th, 2020, the model will attempt to predict the contacts that will occur from August 16th, 2020 to August 31st, 2020. We will also attempt to improve the model's performance by performing feature engineering and using other GNN architectures.
 \section{Contributions and Lessons Learned}
@@ -365,6 +367,22 @@ We also learned about the effectiveness of GNNs in detecting patterns and perfor
 % \nocite{ex1,ex2}
 \bibliographystyle{latex8}
 \bibliography{latex8}
+
+\pagebreak
+
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=\textwidth,height=5cm]{imgs/afnan_mir_course_eval.png}
+    \caption{Afnan Mir Completed Course Evaluation} 
+    \label{fig:afnan_mir_course_eval}
+\end{figure*}
+
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=\textwidth,height=5cm]{imgs/jaykumar_patel_course_eval.png}
+    \caption{Jaykumar Patel Completed Course Evaluation} 
+    \label{fig:jaykumar_patel_course_eval}
+\end{figure*}
 
 \end{document}
 
