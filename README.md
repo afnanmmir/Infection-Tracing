@@ -30,7 +30,9 @@ Project for Machine Learning on Real World Networks
     - Original TGN GitHub: `https://github.com/twitter-research/tgn`
     - Original TGN Paper: `https://arxiv.org/abs/2006.10637`
     - `data` contains data used by the framework, which includes edge data and node data
+        - Data, such as node features and edge information in csv format, was created in the `link_prediction_graph_creation/generate_link_pred_input.ipynb` and imported to this `tgn/data` directory
     - `evaluation` contains code what evaluates the model. We modified this to plot the ROC AUC curve and generate the confusion matrix that can be used to determine recall
+        - We modified this file to generate additional result statistics, such as the confusion matrix, and plot the results
     - `modules` contains code for the main modules in the TGN framework
         - `memory.py` - stores memory for the nodes
         - `message_function.py` - generates messages (information) regarding each node interaction (such as creation of edges)
